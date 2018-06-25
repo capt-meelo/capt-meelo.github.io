@@ -27,12 +27,12 @@ share:
 urls:
     - text: Pen Test
       url: /category/pentest
-    - text: Exploit Development
+    - text: Exploit Dev
       url: /category/exploitdev
     - text: Bug Bounty
       url: /category/bugbouty
     - text: Disclosures
-      url: /category/disclosure  
+      url: /category/disclosures  
     - text: About Me
       url: /about/
       
