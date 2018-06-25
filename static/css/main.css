@@ -96,7 +96,7 @@ div.col-sm-3 div.profile-about {
   margin-top: 10px;
   color: #8C8C8C;
 }
-div.col-sm-3 img.profile-avatar {
+div.col-sm-3 img.profile-avatar { 
   border-radius: 150px;
   -webkit-border-radius: 150px;
   -moz-border-radius: 150px;
@@ -104,8 +104,8 @@ div.col-sm-3 img.profile-avatar {
   -o-border-radius: 150px;
   margin-left: auto;
   margin-right: auto;
-  width: 500px;
-  height: 500px;
+  width: 150px;  /* Avatar Size */
+  height: 150px;
 }
 
 /* Pagination */
@@ -143,7 +143,7 @@ div.col-sm-3 img.profile-avatar {
   margin: 0 5px;
 }
 .social li a {
-  font-size: 20px;	/* Social Icons above search */
+  font-size: 25px;	/* Social Icons above search */
   color: #969394;
 }
 .social li a:hover {
