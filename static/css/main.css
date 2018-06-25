@@ -108,7 +108,7 @@ div.col-sm-3 img.profile-avatar {
 
 /* Pagination */
 .PageNavigation {
-  font-size: 14px;
+  font-size: 20px;
   display: block;
   width: auto;
   overflow: hidden;
@@ -141,7 +141,7 @@ div.col-sm-3 img.profile-avatar {
   margin: 0 5px;
 }
 .social li a {
-  font-size: 16px;
+  font-size: 25px;
   color: #969394;
 }
 .social li a:hover {
