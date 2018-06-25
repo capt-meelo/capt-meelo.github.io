@@ -31,9 +31,9 @@ urls:
       url: /category/bugbouty
     - text: Disclosures
       url: /category/disclosure  
-    - text: ExploitDev
+    - text: Exploit Development
       url: /category/exploitdev
-    - text: PenTest
+    - text: Pen Test
       url: /category/pentest
 
 url: "https://capt-meelo.github.io/"
