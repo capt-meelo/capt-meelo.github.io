@@ -25,17 +25,17 @@ share:
   twitter_username: CaptMeelo
 
 urls:
-    - text: About Me
-      url: /about/
+    - text: Pen Test
+      url: /category/pentest
+    - text: Exploit Development
+      url: /category/exploitdev
     - text: Bug Bounty
       url: /category/bugbouty
     - text: Disclosures
       url: /category/disclosure  
-    - text: Exploit Development
-      url: /category/exploitdev
-    - text: Pen Test
-      url: /category/pentest
-
+    - text: About Me
+      url: /about/
+      
 url: "https://capt-meelo.github.io/"
 baseurl: ""
 paginate: 20
