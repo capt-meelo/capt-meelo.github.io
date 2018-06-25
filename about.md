@@ -1,9 +1,8 @@
 ---
 layout: page
-title: About
+title: About Me
 permalink: /about/
 ---
 
-I am freelance developer. Currently doing more in backend, focused in Python and Django.
-
-email: agus[at]python.web.id
+I am an infosec guy who's always trying to learn new things and gain new knowledge.
+I currently hold OSCP and CREST CRT certifications.
