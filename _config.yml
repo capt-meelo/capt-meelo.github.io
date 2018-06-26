@@ -43,6 +43,7 @@ paginate_path: "/page/:num/"
 markdown: kramdown
 gems:
   - jekyll-paginate
+  - jekyll-gist
 
 compress_html:
   clippings: all
