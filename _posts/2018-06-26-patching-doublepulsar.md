@@ -15,6 +15,7 @@ Even the new MS17-010 module *(exploit/windows/smb/ms17_010_psexec)* didn’t wo
 ![New MS17-010](/static/img/01/03.png)
 
 That’s weird. Maybe MSF’s auxiliary module gave me a false positive. Or maybe the authors of the exploit modules forgot to include the support for Windows Embedded. 
+
 ![Meme](/static/img/01/04.png)
 
 To verify if the target was really vulnerable, I decided to use the original exploit for MS17-010. So, I fired up **Fuzzbunch** and then used **SMBTouch**. The result showed that the target was actually vulnerable via **EternalBlue**.
