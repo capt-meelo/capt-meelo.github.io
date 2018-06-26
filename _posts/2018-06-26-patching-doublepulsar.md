@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "get Month Name [CF]"
+title:  "Patching DoublePulsar to Exploit Windows Embedded"
 date:   2016-06-11 03:43:45 +0700
-categories: [python, codefights]
+categories: pentest
 ---
 
 Map the given integer to a month.
