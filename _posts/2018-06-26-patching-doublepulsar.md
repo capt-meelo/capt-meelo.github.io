@@ -60,7 +60,7 @@ Then used  [@stalkr_’s](https://twitter.com/stalkr_) script [https://stalkr.ne
 Then moved back the modified **Doublepulsar-1.3.1.exe** to its original location.
 ![Modified DoublePulsar](/static/img/01/18.png)
 
-Using the **modified DoublePulsar**, I was successfully injected the generated DLL payload to the target host.
+Using the **modified DoublePulsar**, I successfully injected the generated DLL payload to the target host.
 ![DoublePulsar Worked](/static/img/01/19.png)
 
 And gained a SYSTEM shell.
