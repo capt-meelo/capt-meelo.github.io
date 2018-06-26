@@ -3,7 +3,7 @@ description: My InfoSec Blog
 author: Capt. Meelo
 github: https://github.com/capt-meelo
 about: An infosec noob who's constantly seeking for knowledge.
-google_analytics: UA-XXXXXXXX-Y     ##TODO
+google_analytics: UA-121401658-1
 avatar_url: /static/img/avatar.jpg
 
 enableTags: true
