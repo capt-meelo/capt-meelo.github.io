@@ -54,7 +54,7 @@ This is what it looked like after modifying the jump instruction.
 I then created a DIF file by going to **_File > Produce file > Create DIF file..._**. 
 ![DIF File](/static/img/01/16.png)
 
-Then used  [@stalkr_’s](https://twitter.com/stalkr_) script (https://stalkr.net/files/ida/idadif.py) in order to patch the modified exe file.
+Then used  [@stalkr_’s](https://twitter.com/stalkr_) script [https://stalkr.net/files/ida/idadif.py](https://stalkr.net/files/ida/idadif.py) in order to patch the modified exe file.
 ![Patched](/static/img/01/17.png)
 
 Then moved back the modified **Doublepulsar-1.3.1.exe** to its original location.
