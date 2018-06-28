@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "[VulnServer] Exploiting GTER Command with Limited Buffer Space Using Egghunter"
-date:   2018-06-27
+date:   2018-06-28
 categories: [exploitdev, osceprep]
 ---
 
