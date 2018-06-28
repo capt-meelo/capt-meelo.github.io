@@ -253,6 +253,7 @@ Then I generated a shellcode using the following.
 ![Shellcode](/static/img/03/15.png)
 
 The only problem left was the location on where to place the shellcode. I didn’t have more than 355 bytes of buffer space to place my shellcode.
+
 ![Meme](/static/img/03/16.png)
 
 To solve the problem, I reused the other commands available from vulnserver and hoped that my shellcode would be placed somewhere in memory. It should be noted that I already removed the `GTER` command since it’s the command that I’m exploiting. I also removed the `KSTET` command since it’s causing problem when sending my shellcode using it. To test if my proposed solution would work, I modified the code to the following and executed it.
