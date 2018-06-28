@@ -45,6 +45,7 @@ gems:
   - jekyll-paginate
   - jekyll-gist
   - jekyll-seo-tag
+  - jemoji
 
 plugins:
   - jekyll-seo-tag
