@@ -334,4 +334,4 @@ The shellcode worked and the target machine opened up a “listening” port on 
 The last thing to do was to connect to the newly opened port to have a shell access.
 ![Shell](/static/img/03/19.png)
 
-I really enjoyed and learned a lot from this exploitation because of the several problems that I encountered along the way.
+I really enjoyed and learned a lot from this exploitation because of the several problems that I encountered along the way. :smile:
