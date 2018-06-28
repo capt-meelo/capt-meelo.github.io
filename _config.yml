@@ -48,6 +48,7 @@ gems:
 
 plugins:
   - jekyll-seo-tag
+  - jemoji
 
 compress_html:
   clippings: all
