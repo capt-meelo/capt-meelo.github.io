@@ -178,7 +178,7 @@ s.close()
 The code worked and **EIP** now points to **ESP**, which contains the buffer of C’s. Again, 20 bytes was not enough to hold a shellcode. By observing the stack, I discovered that the buffer of A’s was located above the buffer of C’s. While the buffer of A’s (147 bytes) was still not enough to host a shellcode, that space would be enough to hold an egghunter.
 ![Buffer of A's](/static/img/03/09.png)
 
-Before that, I first needed to redirect the program flow to the start of A’s. The buffer of A’s started at `0x00B7F975`, while the buffer of C’s was located at `0x00B7FA0C`. The difference between them was `0xFFFFFF69` (-151 bytes). So, I had to jump back 151 bytes to reach the buffer of A’s.
+Before that, I first needed to redirect the program flow to the start of A’s. The buffer of A’s started at `0x00B7F975`, while the buffer of C’s was located at `0x00B7FA0C`. The difference between them was `0xFFFFFF69` **(-151 bytes)**. So, I had to jump back 151 bytes to reach the buffer of A’s.
 ![Redirection to A's](/static/img/03/10.png)
 
 Using `!mona assemble -s “JMP 0xFFFFFF69”`, I was able to get the equivalent opcode of the instruction `JMP 0xFFFFFF69`. The opcode was good as it didn’t contain a bad character.
