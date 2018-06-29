@@ -5,7 +5,7 @@ date:   2018-06-29
 categories: [exploitdev, osceprep]
 ---
 
-I used the following skeleton for the exploitation of the `KSTET` command. Instead of sending 5000 bytes of buffer to fuzz the command, I only used 1000 bytes this time.
+I used the following skeleton for the exploitation of the `KSTET` command. Instead of sending 5000 bytes of buffer to fuzz the command, I only used **1000 bytes** this time.
 ```python
 #!/usr/bin/python
 
@@ -54,7 +54,7 @@ s.close()
 Sending this unique string caused **EIP** to be overwritten with **63413363**.
 ![EIP Overwrite](/static/img/04/02.png)
 
-Using `!mona findmsp`, I discovered that the offset was 70 bytes.
+Using `!mona findmsp`, I discovered that the offset was **70 bytes**.
 ![Offset](/static/img/04/03.png)
 
 To verify if it was correct, I sent the following modified code. 
@@ -153,7 +153,7 @@ s.close()
 As seen here, it worked and I was redirected to the buffer of C’s. Just like in my [previous post](https://capt-meelo.github.io/exploitdev/osceprep/2018/06/28/vulnserver-gter.html), the buffer of A’s were located above the buffer of C’s. So, I had to jump backwards again.
 ![JMP ESP Worked](/static/img/04/10.png)
 
-Instead of jumping to the start of A’s, I decided to jump back only with 50 bytes. The opcode of **short jump** is `\xEB`, while -50 is equivalent to `0xFFFFFFCE`. 
+Instead of jumping to the start of A’s, I decided to jump back only with 50 bytes. The opcode of **short jump** is `\xEB`, while **-50** is equivalent to `0xFFFFFFCE`. 
 ![Calculator](/static/img/04/11.png)
 
 So, the opcode of the instruction that I used to jump backwards 50 bytes was `\xEB\xCE`.
