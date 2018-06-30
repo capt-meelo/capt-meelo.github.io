@@ -41,6 +41,14 @@ paginate: 20
 per_page: 20
 paginate_path: "/page/:num/"
 markdown: kramdown
+gems:
+  - jekyll-paginate
+  - jekyll-gist
+  - jekyll-seo-tag
+  - jemoji
+  - jekyll-sitemap
+  - jekyll-auto-image
+
 plugins:
   - jekyll-paginate
   - jekyll-gist
