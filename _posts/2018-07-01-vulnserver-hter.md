@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "[VulnServer] Exploiting HTER Command using Hex Characters Only"
-date:   2018-06-31
+date:   2018-07-01
 categories: [exploitdev, osceprep]
 ---
 
