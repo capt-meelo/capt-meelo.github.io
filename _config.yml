@@ -28,8 +28,6 @@ urls:
       url: /category/pentest
     - text: Exploit Dev
       url: /category/exploitdev
-    - text: Research
-      url: /category/research
     - text: Bug Bounty
       url: /category/bugbouty
     - text: Disclosures
