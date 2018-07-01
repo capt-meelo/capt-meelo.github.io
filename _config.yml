@@ -49,14 +49,6 @@ gems:
   - jekyll-sitemap
   - jekyll-auto-image
 
-plugins:
-  - jekyll-paginate
-  - jekyll-gist
-  - jekyll-seo-tag
-  - jemoji
-  - jekyll-sitemap
-  - jekyll-auto-image
-
 compress_html:
   clippings: all
   comments: ["<!-- ", " -->"]
