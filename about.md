@@ -8,7 +8,7 @@ I am an infosec guy who's always trying to learn new things, gain new knowledge,
 <br/>
 
 ### Certifications
-<br/>
+
 
 * CREST Registered Penetration Tester (CRT PEN)
 * Offensive Security Certified Professional (OSCP)
