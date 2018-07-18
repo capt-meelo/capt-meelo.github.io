@@ -4,6 +4,12 @@ title: About Me
 permalink: /about/
 ---
 
-* I am an infosec guy who's always trying to learn new things, gain new knowledge, and share them to others.
-* I currently hold the OSCP and CREST CRT certifications.
-* I'm very interetest in penetration testing and exploit development.
+### Summary
+
+I am an infosec guy who's always trying to learn new things, gain new knowledge, and share them to others. I'm very interested in the field of penetration testing and exploit development.
+
+### Certifications
+
+* CREST Registered Penetration Tester (CRT PEN)
+* Offensive Security Certified Professional (OSCP)
+* Offensive Security Wireless Professional (OSWP)
