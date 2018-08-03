@@ -7,7 +7,7 @@ categories: pentest
 
 ## Introduction 
 
-Over the past 3 months, I’ve encountered a number of web applications that were using Telerik Web UI components for their application’s interface. There’s nothing wrong with using third party component to make your application’s interface the way you want it. However, a vulnerability in this component could cause you harm. 
+Over the past months, I’ve encountered a number of web applications that were using Telerik Web UI components for their application’s interface. There’s nothing wrong with using third party component to make your application’s interface the way you want it. However, a vulnerability in this component could cause you harm. 
 
 
 In this post, I’m going to show you how I pwned several web applications, specifically ASP.NET ones, by abusing an outdated version of Telerik Web UI.  
@@ -16,15 +16,19 @@ In this post, I’m going to show you how I pwned several web applications, spec
 
 The simplest way to check if the application is using Telerik Web UI is to view its HTML source code just like here. 
 ![Source1](/static/img/10/01.png)
-> _**TIP #1:** There are times where you’ll not find exactly the string `Telerik.Web.UI` from the HTML code. However, if you find the string `Telerik`, just keep on browsing the other pages of the application and search for the string `Telerik.Web.UI` again._
+> _**TIP #1:** There are times where you’ll not find exactly the string **Telerik.Web.UI** from the HTML code. However, if you find the string **Telerik**, just keep on browsing the other pages of the application and search for the string **Telerik.Web.UI** again._
 
 
 If you’ve identified that the application is using Telerik Web UI, the next step is to identify the version of Telerik Web UI and check if it’s vulnerable to [**CVE-2017-9248**](https://www.telerik.com/support/kb/aspnet-ajax/details/cryptographic-weakness).  
-Finding the version can either be easy or tricky. To get the exact version, just view the HTML code again. In the case below, the version information sits right next to the string `Telerik.Web.UI`. That’s easy.
+
+
+Finding the version can either be easy or tricky. To get the exact version, just view the HTML code. In the case below, the version information sits right next to the string **Telerik.Web.UI**. That’s easy.
 ![Source2](/static/img/10/02.png)
 
-However, there are cases where the version is not located right next to the string “**Telerik.Web.UI**”. Another way to identify for the version of Telerik Web UI is by going through the HTML comments just like here. So you could just view the HTML code and search for the string `<!-- 20`.
+However, there are cases where the version is not located right next to the string “**Telerik.Web.UI**”. Another way to identify the version of Telerik Web UI is by going through the HTML comments just like here. 
 ![Source3](/static/img/10/03.png)
+So you could just view the HTML code and search for the string "**<!-- 20**".
+
 
 Once you have the version information, cross-reference it with the list of vulnerable versions. Based on the [exploitation tool](https://github.com/bao7uo/dp_crypto) written by Paul Taylor ([@bao7uo](https://twitter.com/bao7uo)), the following versions are affected:
 ```
@@ -49,12 +53,15 @@ Once you have the version information, cross-reference it with the list of vulne
 
 ## Exploitation
 
-Before jumping to the exploitation, we have to locate first the "Dialog Handler" `Telerik.Web.UI.DialogHandler.aspx`. Most of the time, it’s located at the root directory of the application. If it’s not there, try the sub-directories. To verify if you’ve found the right location, you should see the string `Loading the dialog…` when accessing the dialog handler.
+Before jumping to the exploitation, we have to locate first the "Dialog Handler" **Telerik.Web.UI.DialogHandler.aspx**. Most of the time, it’s located at the root directory of the application. If it’s not there, try the sub-directories. To verify if you’ve found the right location, you should see the string "**Loading the dialog…**" when accessing the dialog handler.
 ![Loading](/static/img/10/04.png)
 > _**TIP #2:** Sometimes, the sub-directory where the dialog handler is located (or where Telerik Web UI is located in general) can be found from the HTML source code._
 
-For the exploitation, use the tool written by Paul Taylor which can be downloaded [here](https://github.com/bao7uo/dp_crypto). Credits and big thanks to him for writing this one. Here’s an example of the tool running to bruteforce the key and discover the hidden link to access the **Document Manager** page.
-```bash
+For the exploitation, use the tool written by Paul Taylor which can be downloaded [here](https://github.com/bao7uo/dp_crypto). Credits and big thanks to him for writing this one. 
+
+
+Here’s an example of the tool running to bruteforce the key and discover the hidden link to access the **Document Manager** page.
+```sh
 root@kali:~# python dp_crypto.py -k http://www.example.com/Telerik.Web.UI.DialogHandler.aspx 48 hex 9
 
 dp_crypto by Paul Taylor / Foregenix Ltd
@@ -78,7 +85,7 @@ Total web requests: 1781
 2014.3.1024: http://www.example.com/Telerik.Web.UI.DialogHandler.aspx?DialogName=DocumentManager&renderMode=2&Skin=Default&Title=Document%20Manager&dpptn=&isRtl=false&dp=[snipped&redacted]
 ```
 
-Once we access the discovered link, we can see that we now have access to all the files and folders of the web server. More importantly, we can see that we can upload arbitrary files to the server.
+If we access the discovered link, we can see that we now have access to all the files and folders of the web server. More importantly, we can see that we can upload arbitrary files to the server.
 ![Document Manager](/static/img/10/05.png)
 
 Here’s an example of the shell **cmd.aspx** file that I uploaded. 
@@ -94,7 +101,7 @@ As part of my learning process, I decided to create a Burp Suite extension that 
 When running a passive scan, this extension will look for vulnerable versions of Telerik Web UI.
 ![Passive](/static/img/10/08.png)
 
-Here’s what the tab looks like where you can perform the exploitation.
+Here’s what the tab looks like where you can perform the exploitation part.
 ![Tab](/static/img/10/09.png)
 
 That's it. Feel free to contribute in the development of the tool and report/fix some issues.
