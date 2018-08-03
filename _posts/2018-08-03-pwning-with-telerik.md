@@ -16,7 +16,7 @@ In this post, I’m going to show you how I pwned several web applications, spec
 
 The simplest way to check if the application is using Telerik Web UI is to view its HTML source code just like here. 
 ![Source1](/static/img/10/01.png)
-_**TIP #1:** There are times where you’ll not find exactly the string `Telerik.Web.UI` from the HTML code. However, if you find the string `Telerik`, just keep on browsing the other pages of the application and search for the string `Telerik.Web.UI` again._
+> _**TIP #1:** There are times where you’ll not find exactly the string `Telerik.Web.UI` from the HTML code. However, if you find the string `Telerik`, just keep on browsing the other pages of the application and search for the string `Telerik.Web.UI` again._
 
 
 If you’ve identified that the application is using Telerik Web UI, the next step is to identify the version of Telerik Web UI and check if it’s vulnerable to [**CVE-2017-9248**](https://www.telerik.com/support/kb/aspnet-ajax/details/cryptographic-weakness).  
@@ -51,7 +51,7 @@ Once you have the version information, cross-reference it with the list of vulne
 
 Before jumping to the exploitation, we have to locate first the "Dialog Handler" `Telerik.Web.UI.DialogHandler.aspx`. Most of the time, it’s located at the root directory of the application. If it’s not there, try the sub-directories. To verify if you’ve found the right location, you should see the string `Loading the dialog…` when accessing the dialog handler.
 ![Loading](/static/img/10/04.png)
-_**TIP #2:** Sometimes, the sub-directory where the dialog handler is located (or where Telerik Web UI is located in general) can be found from the HTML source code._
+> _**TIP #2:** Sometimes, the sub-directory where the dialog handler is located (or where Telerik Web UI is located in general) can be found from the HTML source code._
 
 For the exploitation, use the tool written by Paul Taylor which can be downloaded [here](https://github.com/bao7uo/dp_crypto). Credits and big thanks to him for writing this one. Here’s an example of the tool running to bruteforce the key and discover the hidden link to access the **Document Manager** page.
 ```bash
