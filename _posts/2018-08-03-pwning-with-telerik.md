@@ -27,8 +27,6 @@ Finding the version can either be easy or tricky. To get the exact version, just
 
 However, there are cases where the version is not located right next to the string “**Telerik.Web.UI**”. Another way to identify the version of Telerik Web UI is by going through the HTML comments just like here. 
 ![Source3](/static/img/10/03.png)
-So, you could just view the HTML code and search for the string "**\<!---- 20**".
-
 
 Once you have the version information, cross-reference it with the list of vulnerable versions. Based on the [exploitation tool](https://github.com/bao7uo/dp_crypto) written by Paul Taylor ([@bao7uo](https://twitter.com/bao7uo)), the following versions are affected:
 ```
