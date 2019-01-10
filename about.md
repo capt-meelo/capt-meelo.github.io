@@ -9,6 +9,7 @@ I am an infosec guy who's always trying to learn new things, gain new knowledge,
 
 ### Certifications
 
-* CREST Registered Penetration Tester (CRT PEN)
 * Offensive Security Certified Professional (OSCP)
 * Offensive Security Wireless Professional (OSWP)
+* CREST Registered Penetration Tester (CRT PEN)
+* CREST Practitioner Security Analyst (CPSA)
