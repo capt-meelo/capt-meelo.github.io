@@ -6,15 +6,15 @@ categories: pentest
 ---
 
 ## Introduction
-{:.center}![Offsec](/static/img/11/offsec.png)
-<br>
+![Offsec](/static/img/11/offsec.png)
+<br/>
 Offensive Security certifications are very popular, and the most sought-after courses/certifications by people who are interested in the offensive side of information security. Until now, people are still willing to spend their money to take the courses and pass the certifications. However, several companies out there are establishing their own hacking courses/certifications/labs, and they're starting to become popular among the folks of the infosec/hacking/penetration testing community. With the rise of several courses, the question is "**Are they worth the price?**" Or is it wiser to spend money elsewhere? 
-<br>
+<br/>
 I think it's time to write my thoughts about them now that I have completed OSCE, OSCP, and OSWP certifications. _**Take note that everything written here is based on my own opinion and views. I do not have any intentions to discourage people from taking Offensive Security's courses and certifications. No hate or bitterness against Offensive Security.**_
 
 ## OSCP
 ![OSCP](/static/img/11/oscp.png)
-<br>
+<br/>
 Let's start with the most popular certification of Offensive Security - OSCP. This is the most sought-after certification by people who wanted to get into penetration testing. Nowadays, everyone want this certification on their CV because of the higher chance of acceptance in the hiring process. Almost every job posting for a pentest position requires OSCP certification. The course material is great and it teaches the skills, mindset, and methodology needed to get the students started with their hacking journey. However, the material is limited. Based on my experience, I was not able to utilized what I learned from this course when I started doing internal network and active directory pentesting. While the lab teaches students how to pivot from one machine/network to another, the lab still doesn't mimic the real-world corporate environment. The course does not cover Man-in-the-Middle attacks as well, which is the most common attack used by pentesters when doing an internal network testing. 
 <br>
 In my opinion, if you're the kind of person who's after for the knowledge and skills, and don't mind having the certification, it's better to check [Hack The Box (HTB)][htb]. You'll find that the machines in HTB is similar to the PWK lab. Another great thing is that HTB is way cheaper than PWK lab. Also, if you want to practice your active directory pentesting skills, HTB has the Pro labs **Offshore** and **RastaLabs**. You can also check Pentester Academy's [Windows Red Team Lab][redteam] which focuses on red teaming. I haven't signed up to this course, but I heard a lot of good things about it. It's kind of pricey though compared to HTB's Pro labs, but it's still better than PWK lab. 
