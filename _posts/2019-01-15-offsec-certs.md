@@ -9,11 +9,14 @@ categories: pentest
 ![Offsec](/static/img/11/offsec.png)
 
 
-Offensive Security certifications are very popular, and the most sought-after courses/certifications by people who are interested in the offensive side of information security. Until now, people are still willing to spend their money to take the courses and pass the certifications. However, several companies out there are establishing their own hacking courses/certifications/labs, and they're starting to become popular among the folks of the infosec/hacking/penetration testing community. With the rise of several courses, the question is "**Are they still worth the price?**" Or is it wiser to spend money elsewhere? 
+Offensive Security certifications are very popular and the most sought-after courses/certifications by people who are interested in the offensive side of information security. Until now, people are still willing to spend their money to take the courses and pass the certifications. However, several companies out there are establishing their own hacking courses/certifications/labs, and they're starting to become popular among the folks of the penetration testing community. With the rise of several courses, the question is "**Are Offensive Security courses/certifications still worth taking? Are they still worth the price?**" Or is it wiser to spend money elsewhere? 
 
 
 
-I think it's time to write my thoughts about them now that I have completed OSCE, OSCP, and OSWP certifications. _**Take note that everything written here is based on my own opinion and views. I do not have any intentions to discourage people from taking Offensive Security's courses and certifications. No hate or bitterness against Offensive Security.**_
+I think it's time to write my thoughts about them now that I have completed OSCE, OSCP, and OSWP certifications. 
+
+
+>_**Take note that everything written here is based on my own opinion and views. I do not have any intentions to discourage people from taking Offensive Security's courses and certifications. No hate or bitterness against Offensive Security.**_
 
 ## OSCP
 ![OSCP](/static/img/11/oscp.png)
@@ -29,7 +32,7 @@ In my opinion, if you're the kind of person who's after for the knowledge and sk
 ![OSCE](/static/img/11/osce.png)
 
 
-OSCE is my latest certifcation. The exploit development section of the CTP course focuses only on Windows environment. Some might think it’s one of the cons of this course, but for me, it’s not. I don’t mind if exploit development on Linux environment isn’t covered. My biggest concern is the lack of value of the course material. We know that Offensive Security always want their students to do the extra mile and to “try harder” - meaning they expect us to research related materials about a topic, and not just rely on what is presented from the course material. I get their motives and even support the need to go the extra mile. My problem is that the information from the course is lacking, and there is no deep explanation of some of the topics. Since I paid for the course material, I expected to learn a lot from it. Unfortunately, that’s not the case. **I learned and gained more knowledge from [Corelan's][corelan] and [FuzzySecurit’s][fuzzysec] tutorials, and from googling.**
+OSCE is my latest certifcation. The exploit development section of the CTP course focuses only on Windows environment. Some might think it’s one of the cons of this course, but for me, it’s not. I don’t mind if exploit development on Linux environment isn’t covered. My biggest concern is the lack of value of the course material. We know that Offensive Security always want their students to do the extra mile and to “try harder” - meaning they expect us to research related materials about a topic, and not just rely on what is presented from the course material. I get their motives and even support the need to go the extra mile. My problem is that the information from the course is lacking, and there is no deep explanation of some of the topics. Since I paid for the course material, I expected to learn a lot from it. Unfortunately, that’s not the case. **I learned and gained more knowledge from [Corelan's][corelan] and [FuzzySecurity’s][fuzzysec] tutorials, and from googling.**
 
 
 For me, the lab is a waste of money because **you don’t need lab access to practice what’s being taught in the course.** If you refer to the [syllabus][osce-syllabus], you can easily set up your own lab environment by spinning up some VMS and installing vulnerable softwares. This is what I did - before signing up to the course, I practiced on my own lab by following the syllabus provided by Offensive Security. I highly recommend doing this especially for those who have a slow network connection like mine. With these, I think the CTP course is not worth taking. If there’s an option to pay only for the exam (excluding the course), I would definitely do it.
