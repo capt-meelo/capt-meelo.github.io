@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Offensive Security Certifications - Are They Still Worth Taking?"
+title:  "OffSec Certs - Are They Still Worth Taking?"
 date:   2019-01-15
 categories: pentest
 ---
