@@ -9,20 +9,20 @@ categories: pentest
 ![Offsec](/static/img/11/offsec.png)
 
 
-Offensive Security certifications are very popular and the most sought-after courses/certifications by people who are interested in the offensive side of information security. Until now, people are still willing to spend their money to take the courses and pass the certifications. However, several companies out there are establishing their own hacking courses/certifications/labs, and they're starting to become popular among the folks of the penetration testing community. With the rise of several courses, the question is "**Are Offensive Security courses/certifications still worth the price?**" Or is it wiser to spend money elsewhere? 
+Offensive Security certifications are very popular and are sought-after courses/certifications by people who are interested in the offensive side of information security. Until now, people are still willing to spend their money to take the courses and pass the certifications. However, several companies out there are establishing their own hacking courses/certifications/labs, and they're starting to become popular among the folks of the penetration testing community. With the rise of several courses, the question is "**Are Offensive Security courses/certifications still worth the price?**" Or is it wiser to spend money elsewhere? 
 
 
 
 I think it's time to write my thoughts about them now that I have completed OSCE, OSCP, and OSWP certifications. 
 
 
->_**Take note that everything written here is based on my own opinion and views. I do not have any intentions to discourage people from taking Offensive Security's courses and certifications. No hate or bitterness against Offensive Security.**_
+>_**Take note that everything written here is based on my own opinion and views. I do not have any intention to discourage people from taking Offensive Security's courses and certifications. No hate or bitterness against Offensive Security.**_
 
 ## OSCP
 ![OSCP](/static/img/11/oscp.png)
 
 
-Let's start with the most popular certification of Offensive Security - OSCP. This is the most sought-after certification by people who wanted to get into penetration testing. Nowadays, everyone want this certification on their CV because of the higher chance of acceptance in the hiring process. Almost every job posting for a pentest position requires OSCP certification. The course material is great and it teaches the skills, mindset, and methodology needed to get the students started with their hacking journey. However, the material is limited. Based on my experience, I was not able to utilized what I learned from this course when I started doing internal network and active directory pentesting. While the lab teaches students how to pivot from one machine/network to another, the lab still doesn't mimic the real-world corporate environment. The course does not cover Man-in-the-Middle attacks as well, which is the most common attack used by pentesters when doing an internal network testing. 
+Let's start with the most popular certification of Offensive Security - OSCP. This is the most sought-after certification by people who want to get into penetration testing. Nowadays, everyone want this certification on their CV because of the higher chance of acceptance in the hiring process. Almost every job posting for a pentest position requires OSCP certification. The course material is great and it teaches the skills, mindset, and methodology needed to get the students started with their hacking journey. However, the material is limited. Based on my experience, I was not able to utilized what I learned from this course when I started doing internal network and active directory pentesting. While the lab teaches students how to pivot from one machine/network to another, the lab still doesn't mimic the real-world corporate environment. The course does not cover Man-in-the-Middle attacks as well, which is the most common attack used by pentesters when doing an internal network testing. 
 
 
 In my opinion, if you're the kind of person who's after for the knowledge and skills, and don't mind having the certification, it's better to check [Hack The Box (HTB)][htb]. You'll find that the machines in HTB is similar to the PWK lab. Another great thing is that HTB is way cheaper than PWK lab. Also, if you want to practice your active directory pentesting skills, HTB has the Pro labs _Offshore_ and _RastaLabs_. **If students could only pay for the exam (excluding the course/lab)**, then they could save some money by doing HTB instead of the PWK lab as preparation for the exam.
@@ -68,18 +68,18 @@ I haven’t taken these courses/certifications since they’re not yet available
 For AWE/OSEE, I don't have much to say as well since I haven’t taken the course/certification yet. Regarding the course’s online availability, I read from [Jollyfrog’s blog][osee] that it will be online by early 2020. However, some said that the online version might not happen since the course is being updated yearly. I also heard that this is the hardest exploit development course. If you're looking for a prep course, I think [Prace Security's Advanced Software Exploitation][ptrace] is good based on its syllabus. I also haven't taken this course yet so no review about it.
 
 
-Again, these are just my opinions since I haven't taken both AWAE and AWE courses. But I'll definitely take them to complete all of Offensive Security's certification. Gotta catch 'em all!. 
+Again, these are just my opinions since I haven't taken both AWAE and AWE courses. But I'll definitely take them to complete all of Offensive Security's certification. Gotta catch 'em all! 
 
 
 ## Conclusion
 
-If you love challenges and really need the certifications on your CV, go ahead and take the Offensive Security courses. However, if you are the type of person who always want the best value out of your pocket, I suggest you look for other courses since these courses (OSCE, OSCP, and OSWP) are not worth the money anymore. For me, I'm still going to take Offensive Security certifications because they don't expire and are still valuable in my CV. 
+If you love challenges and really need the certifications on your CV, go ahead and take the Offensive Security courses. For me, I'm still going to take Offensive Security certifications because they don't expire and are still valuable in my CV. However, if you are the type of person who always want the best value out of their pocket, I suggest you consider other available courses. 
 
 
-Another thing, I'm not a fan of certifications in a sense that people should choose **knowledge and skills over certification**. I know a lot of people who are not certified but very skilled and talented in the infosec field, thus making them more valuable than those who are certified. It's not about the certifications that you can add in your CV and hang in your wall, but it's more about the skills and the knowledge that you can gain. **Take the course for the sake of knowledge and skills, not just for the sake of being certified.**
+Another thing, people should always choose **knowledge and skills over certification**. I know a lot of people who are not certified but are very skilled and talented in the infosec field, thus making them more valuable than those who are certified. It's not just about the certifications that you can add in your CV and hang in your wall, but it's more about the skills and the knowledge that you can gain. **Take the course for the sake of knowledge and skills, not just for the sake of being certified.**
 
 
-If you're like me who does not earn much and who is frugal, keep on searching the web for a particular topic that you need and want to learn. There are a lot of people/companies who freely provide tutorials, writeups, and courses. Good examples of these are [Open Security Training][open] and [Sam Bowne][samclass]. Remember, always **be resourceful**.
+If you're like me who does not earn much and who is frugal, keep on searching the web for a particular topic that you need and want to learn. There are a lot of people/companies who freely provide tutorials, writeups, and courses. Good examples of these are [Open Security Training][open] and [Sam Bowne][samclass]. Remember, **Google is your friend so be resourceful**.
 
 [htb]: https://www.hackthebox.eu/
 [redteam]: https://www.pentesteracademy.com/redteamlab
