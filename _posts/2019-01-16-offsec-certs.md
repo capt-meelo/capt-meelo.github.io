@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "OffSec Certs - Are They Still Worth Taking?"
-date:   2019-01-15
+title:  "OffSec Certs - Are They Still Worth the Money?"
+date:   2019-01-16
 categories: pentest
 ---
 
@@ -9,7 +9,7 @@ categories: pentest
 ![Offsec](/static/img/11/offsec.png)
 
 
-Offensive Security certifications are very popular and the most sought-after courses/certifications by people who are interested in the offensive side of information security. Until now, people are still willing to spend their money to take the courses and pass the certifications. However, several companies out there are establishing their own hacking courses/certifications/labs, and they're starting to become popular among the folks of the penetration testing community. With the rise of several courses, the question is "**Are Offensive Security courses/certifications still worth taking? Are they still worth the price?**" Or is it wiser to spend money elsewhere? 
+Offensive Security certifications are very popular and the most sought-after courses/certifications by people who are interested in the offensive side of information security. Until now, people are still willing to spend their money to take the courses and pass the certifications. However, several companies out there are establishing their own hacking courses/certifications/labs, and they're starting to become popular among the folks of the penetration testing community. With the rise of several courses, the question is "**Are Offensive Security courses/certifications still worth the price?**" Or is it wiser to spend money elsewhere? 
 
 
 
