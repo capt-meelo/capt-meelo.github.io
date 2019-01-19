@@ -77,7 +77,7 @@ Takte note that when creating a username, it should contain the SQL syntax `' or
 ![Registration](/static/img/12/04.png)
 
 
-Using the created account, we can now login.
+Using the created account, let's now login to the application.
 ![Login](/static/img/12/05.png)
 
 
@@ -93,7 +93,7 @@ Using the discovered credentials and the share name, we now have an SMB access. 
 ![SMB Access](/static/img/12/08.png)
 
 
-For us to execute nc.exe, let's create following PHP shell. 
+To overcome the problem, let's first create the following PHP shell. This shell will be used to execute **nc.exe**.
 ![PHP Shell](/static/img/12/09.png)
 
 
