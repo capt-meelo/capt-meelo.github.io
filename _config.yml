@@ -28,8 +28,6 @@ urls:
       url: /category/pentest
     - text: Exploit Dev
       url: /category/exploitdev
-    - text: HTB Writeup
-      url: /category/hackthebox
     - text: Bug Bounty
       url: /category/bugbouty
     - text: Disclosures
