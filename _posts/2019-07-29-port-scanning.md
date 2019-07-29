@@ -59,7 +59,7 @@ In spite of the good performances, features, and results that Nmap and Masscan p
     - Inaccurate results when scanning large port ranges with high rates [[1]](https://github.com/robertdavidgraham/masscan/issues/365)
     - Does not automatically adjust the transmission rate according to the environment
 -->
-
+{:class="table table-bordered"}
 |          | Nmap | Masscan |
 |:--------:|------|---------|
 | **PROS** |{::nomarkdown}<ul><li>More accurate between the two (uses synchronous mode)</li><li>Has a lot of features</li><li>Accepts both domain names & IP addresses (both IPv4 & IPv6)</li></ul>{:/}|{::nomarkdown}<ul><li>Very fast (uses asynchronous mode)</li><li>Syntax is very similar to Nmap</li></ul>{:/}|
