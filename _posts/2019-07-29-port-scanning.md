@@ -57,7 +57,7 @@ In spite of the good performances, features, and results that Nmap and Masscan p
   </tr>
   <tr>
     <td class="tg-wa1i">PROS</td>
-    <td class="tg-cly1"><br>- More accurate between the two (uses synchronous mode)<br>- Has a lot of features<br><br>- Accepts both domain names &amp; IP addresses (both IPv4 &amp; IPv6)<br></td>
+    <td class="tg-cly1"><br>- More accurate between the two (uses synchronous mode)<br>- Has a lot of features<br>- Accepts both domain names &amp; IP addresses (both IPv4 &amp; IPv6)<br></td>
     <td class="tg-cly1"><br>- Very fast (uses asynchronous mode)- Syntax is very similar to Nmap</td>
   </tr>
   <tr>
