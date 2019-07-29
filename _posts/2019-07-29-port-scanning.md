@@ -42,30 +42,14 @@ In spite of the good performances, features, and results that Nmap and Masscan p
 
 >_Take note that this is a not detailed comparison between the two tools. Only those that are relevant to the research were listed._
 
-<!---
-**Nmap:**
-- _PROS:_
-    - More accurate between the two (uses synchronous mode)
-    - Has a lot of features
-    - Accepts both domain names & IP address (both IPv4 & IPv6)
-- _CONS:_
-    - Very slow when scanning hundreds of thousands of targets
-
-**Masscan:**
-- _PROS:_
-    - Very fast (uses asynchronous mode)
-    - Syntax is very similar to Nmap
-- _CONS:_
-    - Inaccurate results when scanning large port ranges with high rates [[1]](https://github.com/robertdavidgraham/masscan/issues/365)
-    - Does not automatically adjust the transmission rate according to the environment
--->
-
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;}
 .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
 .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
 .tg .tg-cly1{text-align:left;vertical-align:middle}
+.tg .tg-ncfi{font-weight:bold;background-color:#efefef;text-align:center;vertical-align:middle}
 .tg .tg-wa1i{font-weight:bold;text-align:center;vertical-align:middle}
+.tg .tg-gg7l{background-color:#efefef;text-align:left;vertical-align:middle}
 </style>
 <table class="tg">
   <tr>
@@ -79,9 +63,9 @@ In spite of the good performances, features, and results that Nmap and Masscan p
     <td class="tg-cly1"><br>- Very fast (uses asynchronous mode)- Syntax is very similar to Nmap</td>
   </tr>
   <tr>
-    <td class="tg-wa1i">CONS</td>
-    <td class="tg-cly1">- Very slow when scanning hundreds of thousands of targets</td>
-    <td class="tg-cly1">- Inaccurate results when scanning large port ranges with high rates <a href="https://github.com/robertdavidgraham/masscan/issues/365">[1]</a><br>- Does not accept domain names as target input<br>- Does not automatically adjust the transmission rate according to the environment<br></td>
+    <td class="tg-ncfi">CONS</td>
+    <td class="tg-gg7l">- Very slow when scanning hundreds of thousands of targets</td>
+    <td class="tg-gg7l">- Inaccurate results when scanning large port ranges with high rates <a href="https://github.com/robertdavidgraham/masscan/issues/365">[1]</a><br>- Does not accept domain names as target input<br>- Does not automatically adjust the transmission rate according to the environment<br></td>
   </tr>
 </table>
 
@@ -124,7 +108,7 @@ The following subnets were chosen as the target networks for this research:
     <th class="tg-uzvj">Subnets</th>
   </tr>
   <tr>
-    <td class="tg-nrix"><br>A</td>
+    <td class="tg-nrix">A</td>
     <td class="tg-nrix">A.A.0.0/16</td>
   </tr>
   <tr>
@@ -512,17 +496,37 @@ In our example, new open ports were detected (_**bold texts** in column 4_) by N
 ### Test Case #4: Scan on the specific open ports on specific hosts identified by Masscan
 
 This one is somewhat similar from the previous test case. Here, I didn't combine all the open ports detected by Masscan from each host. Whatever open ports were detected by Masscan on a particular host, the same ports will be used by Nmap. The following table illustrates what was done for this test case.
-<style>
-.tablelines table, .tablelines td, .tablelines th {
-        border: 1px solid black;
-        }
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-9wq8{border-color:inherit;text-align:center;vertical-align:middle}
+.tg .tg-wa1i{font-weight:bold;text-align:center;vertical-align:middle}
+.tg .tg-uzvj{font-weight:bold;border-color:inherit;text-align:center;vertical-align:middle}
+.tg .tg-nrix{text-align:center;vertical-align:middle}
 </style>
-| Hosts       | Open Ports Detected by Masscan | Target Ports During Nmap Scan |
-|:-----------:|:------------------------------:|:-----------------------------:|
-| 192.168.1.1 | 22,80,443                      | 22,80,443                     |                    
-| 192.168.1.2 | 8080,8888                      | 8080,8888                     |                    
-| 192.168.1.3 | 80,443                         | 80,443                        | 
-{: .tablelines}
+<table class="tg">
+  <tr>
+    <th class="tg-uzvj">Hosts</th>
+    <th class="tg-wa1i">Open Ports Detected by Masscan</th>
+    <th class="tg-wa1i">Target Ports During Nmap Scan</th>
+  </tr>
+  <tr>
+    <td class="tg-nrix">192.168.1.1</td>
+    <td class="tg-nrix">22,80,443</td>
+    <td class="tg-nrix">22,80,443</td>
+  </tr>
+  <tr>
+    <td class="tg-9wq8">192.168.1.2</td>
+    <td class="tg-nrix">8080,8888</td>
+    <td class="tg-nrix">8080,8888</td>
+  </tr>
+  <tr>
+    <td class="tg-nrix">192.168.1.3</td>
+    <td class="tg-nrix">80,443</td>
+    <td class="tg-nrix">80,443</td>
+  </tr>
+</table>
 
 The following command was used to get the list of hosts.
 ```bash
