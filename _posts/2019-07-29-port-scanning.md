@@ -59,14 +59,16 @@ In spite of the good performances, features, and results that Nmap and Masscan p
     - Inaccurate results when scanning large port ranges with high rates [[1]](https://github.com/robertdavidgraham/masscan/issues/365)
     - Does not automatically adjust the transmission rate according to the environment
 -->
-<div class="datatable-begin"></div>
-
+<style>
+.tablelines table, .tablelines td, .tablelines th {
+        border: 1px solid black;
+        }
+</style>
 |          | Nmap | Masscan |
 |:--------:|------|---------|
-| **PROS** |<ul><li>More accurate between the two (uses synchronous mode)</li><li>Has a lot of features</li><li>Accepts both domain names & IP addresses (both IPv4 & IPv6)</li></ul>|<ul><li>Very fast (uses asynchronous mode)</li><li>Syntax is very similar to Nmap</li></ul>|
-| **CONS** |<ul><li>Very slow when scanning hundreds of thousands of targets</li></ul>|<ul><li>Inaccurate results when scanning large port ranges with high rates [[1]](https://github.com/robertdavidgraham/masscan/issues/365)</li><li>Does not accept domain names as target input</li><li>Does not automatically adjust the transmission rate according to the environment</li></ul>|
-
-<div class="datatable-end"></div>
+| **PROS** |{::nomarkdown}<ul><li>More accurate between the two (uses synchronous mode)</li><li>Has a lot of features</li><li>Accepts both domain names & IP addresses (both IPv4 & IPv6)</li></ul>{:/}|{::nomarkdown}<ul><li>Very fast (uses asynchronous mode)</li><li>Syntax is very similar to Nmap</li></ul>{:/}|
+| **CONS** |{::nomarkdown}<ul><li>Very slow when scanning hundreds of thousands of targets</li></ul>{:/}|{::nomarkdown}<ul><li>Inaccurate results when scanning large port ranges with high rates [[1]](https://github.com/robertdavidgraham/masscan/issues/365)</li><li>Does not accept domain names as target input</li><li>Does not automatically adjust the transmission rate according to the environment</li></ul>{:/}|
+{: .tablelines}
 
 ## Research Idea
 
