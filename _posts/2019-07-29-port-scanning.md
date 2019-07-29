@@ -70,6 +70,31 @@ In spite of the good performances, features, and results that Nmap and Masscan p
 | **CONS** |<ul><li>Very slow when scanning hundreds of thousands of targets</li></ul>|<ul><li>Inaccurate results when scanning large port ranges with high rates [[1]](https://github.com/robertdavidgraham/masscan/issues/365)</li><li>Does not accept domain names as target input</li><li>Does not automatically adjust the transmission rate according to the environment</li></ul>|
 {: .tablelines}
 
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-cly1{text-align:left;vertical-align:middle}
+.tg .tg-wa1i{font-weight:bold;text-align:center;vertical-align:middle}
+</style>
+<table class="tg">
+  <tr>
+    <th class="tg-cly1"></th>
+    <th class="tg-wa1i">Nmap</th>
+    <th class="tg-wa1i">Masscan</th>
+  </tr>
+  <tr>
+    <td class="tg-wa1i">PROS</td>
+    <td class="tg-cly1"><br>- More accurate between the two (uses synchronous mode)<br>- Has a lot of features<br><br>- Accepts both domain names &amp; IP addresses (both IPv4 &amp; IPv6)<br></td>
+    <td class="tg-cly1"><br>- Very fast (uses asynchronous mode)- Syntax is very similar to Nmap</td>
+  </tr>
+  <tr>
+    <td class="tg-wa1i">CONS</td>
+    <td class="tg-cly1">- Very slow when scanning hundreds of thousands of targets</td>
+    <td class="tg-cly1">- Inaccurate results when scanning large port ranges with high rates <a href="https://github.com/robertdavidgraham/masscan/issues/365">[1]</a><br>- Does not accept domain names as target input<br>- Does not automatically adjust the transmission rate according to the environment<br></td>
+  </tr>
+</table>
+
 ## Research Idea
 
 Based on the advantages and disadvantages of the tools listed above, the following solutions and problems were identified in trying to find the balance between speed and accuracy.
