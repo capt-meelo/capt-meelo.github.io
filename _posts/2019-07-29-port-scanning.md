@@ -59,12 +59,16 @@ In spite of the good performances, features, and results that Nmap and Masscan p
     - Inaccurate results when scanning large port ranges with high rates [[1]](https://github.com/robertdavidgraham/masscan/issues/365)
     - Does not automatically adjust the transmission rate according to the environment
 -->
-
+<style>
+.tablelines table, .tablelines td, .tablelines th {
+        border: 1px solid black;
+        }
+</style>
 |          | Nmap | Masscan |
 |:--------:|------|---------|
 | **PROS** |<ul><li>More accurate between the two (uses synchronous mode)</li><li>Has a lot of features</li><li>Accepts both domain names & IP addresses (both IPv4 & IPv6)</li></ul>|<ul><li>Very fast (uses asynchronous mode)</li><li>Syntax is very similar to Nmap</li></ul>|
 | **CONS** |<ul><li>Very slow when scanning hundreds of thousands of targets</li></ul>|<ul><li>Inaccurate results when scanning large port ranges with high rates [[1]](https://github.com/robertdavidgraham/masscan/issues/365)</li><li>Does not accept domain names as target input</li><li>Does not automatically adjust the transmission rate according to the environment</li></ul>|
-
+{: .tablelines}
 
 ## Research Idea
 
@@ -91,13 +95,18 @@ While the ideas listed above are great, we still need to solve the **CONS** of e
 ### Target Networks
 
 The following subnets were chosen as the target networks for this research:
-
+<style>
+.tablelines table, .tablelines td, .tablelines th {
+        border: 1px solid black;
+        }
+</style>
 | Targets | Subnets    |
 | :------:|:----------:|
 | A       | A.A.0.0/16 |
 | B       | B.B.0.0/16 |
 | C       | C.C.0.0/16 |
 | D       | D.D.0.0/16 |
+{: .tablelines}
 
 ### Scanning Machine
 
@@ -430,23 +439,33 @@ _Observations:_
 Take a look first at the table below. Let's say for example that Masscan detected the following open ports (_column 2_) on each host. The combination of all open ports detected by Masscan will be used as the target ports when running an Nmap scan (_column 3_). 
 
 In our example, new open ports were detected (_**bold texts** in column 4_) by Nmap after finishing its scan. How did it happen? Masscan being an asynchronous scanner, it is possible that port `22` was missed on hosts `192.168.1.2` and `192.168.1.3`. Since we combined all detected open ports on every hosts and used them as the target ports for Nmap, this missed port (`22`) will be probe again. The caveat is that there's no assurance that Nmap will be able to detect it as open as there are other factors that might affect the scan. 
-
+<style>
+.tablelines table, .tablelines td, .tablelines th {
+        border: 1px solid black;
+        }
+</style>
 | Hosts       | Open Ports Detected by Masscan | Target Ports During Nmap Scan | Open Ports Detected After Running Nmap |
 |:-----------:|:------------------------------:|:-----------------------------:|:--------------------------------------:|
 | 192.168.1.1 | 22,80,443                      | 22,80,443,8080,8888           | 22,80,443                              |                      
 | 192.168.1.2 | 8080,8888                      | 22,80,443,8080,8888           | **22**,8080,888                        |                      
 | 192.168.1.3 | 80,443                         | 22,80,443,8080,8888           | **22**,80,443                          |                      
+{: .tablelines}
 
 
 ### Test Case #4: Scan on the specific open ports on specific hosts identified by Masscan
 
 This one is somewhat similar from the previous test case. Here, I didn't combine all the open ports detected by Masscan from each host. Whatever open ports were detected by Masscan on a particular host, the same ports will be used by Nmap. The following table illustrates what was done for this test case.
-
+<style>
+.tablelines table, .tablelines td, .tablelines th {
+        border: 1px solid black;
+        }
+</style>
 | Hosts       | Open Ports Detected by Masscan | Target Ports During Nmap Scan |
 |:-----------:|:------------------------------:|:-----------------------------:|
 | 192.168.1.1 | 22,80,443                      | 22,80,443                     |                    
 | 192.168.1.2 | 8080,8888                      | 8080,8888                     |                    
 | 192.168.1.3 | 80,443                         | 80,443                        | 
+{: .tablelines}
 
 The following command was used to get the list of hosts.
 ```bash
