@@ -6,7 +6,7 @@ categories: pentest
 ---
 
 ## Introduction
-======
+----
 Reconnaissance is the most important phase in every bug bounty session or pentest engagement. A good recon can make a difference between a successful and failed result. Reconnaissance can be categorized into two: active and passive. One of the methods used during active reconnaissance is port scanning. This method allows pentesters and bug hunters to determine which ports are open on the target hosts or networks, as well as identify the services running on these ports.
 
 However, port scanning always comes with a trade-off between speed and accuracy. During pentest engagements, the tester's time is limited; while in bug bounties, there is always a race on who can discover and submit the bug first. These reasons force us to prioritize speed over accuracy during port scanning. The drawback to this is the failure to be accurate. With the race against time, we are missing open ports that could lead to a successful pentest engagement or bug hunting.
@@ -15,7 +15,7 @@ This research aims to find the balance between speed and accuracy during an Inte
 
 
 ## Port Scanning Overview
-======
+----
 Port scanning is one of the most commonly used techniques when doing reconnaissance. This technique allows pentesters or bug hunters to identify open ports available on a host, as well as recognize the services running on these open ports. 
 
 Port scanners can be categorized on how they operate: **connection-oriented (synchronous mode)** and **connectionless (asynchronous mode)** scanners.
@@ -35,7 +35,7 @@ Connectionless scanners do not rely on the completion of the current port being 
 **[Masscan](https://github.com/robertdavidgraham/masscan)** and **[Zmap](https://github.com/zmap/zmap)** are two of the most popular connectionless scanners available.
 
 ## Nmap vs Masscan
-======
+----
 > _For this research, only Nmap and Masscan were included. While Zmap produces good results and a fast scanner, it can only scan one port at a time. Based on experience, Zmap scan is still slow even when multiple jobs are running at the same time._
 
 In spite of the good performances, features, and results that Nmap and Masscan provide, they still have their own weaknesses. The table below shows the PROS and CONS of both tools. 
@@ -68,7 +68,7 @@ In spite of the good performances, features, and results that Nmap and Masscan p
 </table>
 
 ## Research Idea
-======
+----
 Based on the advantages and disadvantages of the tools listed above, the following solutions and problems were identified in trying to find the balance between speed and accuracy.
 
 #### Solutions
@@ -88,7 +88,7 @@ While the ideas listed above are great, we still need to solve the **CONS** of e
 
 
 ## Research Setup
-======
+----
 ### Target Networks
 
 The following subnets were chosen as the target networks for this research:
@@ -144,13 +144,11 @@ For this research, both tools have their own test cases which are variations of 
 
 >_It's impossible to cover every variations/combinations of options in a limited period of time, thus only the above were covered._
 
-<br>
-
 For test cases which use concurrent jobs, [GNU Parallel](https://www.gnu.org/software/parallel/) was used. If you're new to this tool, please check this detailed [tutorial](https://www.gnu.org/software/parallel/parallel_tutorial.html).
 
 
 ## Scope and Limitations
-======
+----
 - The research was conducted using the following versions of the tools: `Nmap v7.70` and `Masscan v1.0.5-51-g6c15edc`.
 - This research only covered IPv4 addresses.
 - Scanning of UDP ports was not included.
@@ -162,7 +160,7 @@ For test cases which use concurrent jobs, [GNU Parallel](https://www.gnu.org/sof
 
 
 ## Masscan Test Cases & Results
-======
+----
 This section details the different test cases performed with Masscan and their results. 
 
 ### Test Case #1: Regular scan of all TCP ports with varying rates
@@ -341,7 +339,7 @@ Based on the results from the test cases performed with Masscan, the following w
 
 
 ## Nmap Test Cases & Results
-======
+----
 In this phase, only version scanning was performed and the use of Nmap's NSEs, OS guess, and other scanning features were not included. Nmap threads were also limited to `T4` which does the equivalent of:
 ```
 --max-rtt-timeout=1250ms --min-rtt-timeout=100ms --initial-rtt-timeout=500ms --max-retries=6 --max-scan-delay=10ms  
@@ -592,7 +590,7 @@ Based on the results with the experiments performed with Nmap, the following wer
 
 
 ## Research Conclusion
-======
+----
 ### Recommended Approach
 
 Based on the results from the test cases conducted for both Masscan and Nmap, the following are recommended to obtain a balanced approach between speed and accuracy during an Internet-wide port scanning: 
@@ -611,12 +609,12 @@ For both tools, the following precautions should be taken as they will result in
 
 
 ## Final Thoughts
-======
+----
 While this research provided an approach on how to balance the speed and accuracy during an Internet-wide port scanning, readers should not take the conclusions here as 100% reliable. Several factors were not included during the research due to limited time and budget. Most notably, the use of only one IP address during the entire research period was not a good setup. Since I was scanning the same target networks for several times, it is possible that the scanning machine's IP address got blacklisted somehow which can cause inconsistencies with the number of open ports being detected. 
 
 Please revisit the **Scope and Limitations** section as it provides a good insight on some of the factors that might affect the result of this research. 
 
 
 ## Closing
-======
+----
 That's it for this post! Thanks for reading this lengthy post and happy hacking! 
