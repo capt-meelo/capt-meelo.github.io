@@ -59,16 +59,6 @@ In spite of the good performances, features, and results that Nmap and Masscan p
     - Inaccurate results when scanning large port ranges with high rates [[1]](https://github.com/robertdavidgraham/masscan/issues/365)
     - Does not automatically adjust the transmission rate according to the environment
 -->
-<style>
-.tablelines table, .tablelines td, .tablelines th {
-        border: 1px solid black;
-        }
-</style>
-|          | Nmap | Masscan |
-|:--------:|------|---------|
-| **PROS** |<ul><li>More accurate between the two (uses synchronous mode)</li><li>Has a lot of features</li><li>Accepts both domain names & IP addresses (both IPv4 & IPv6)</li></ul>|<ul><li>Very fast (uses asynchronous mode)</li><li>Syntax is very similar to Nmap</li></ul>|
-| **CONS** |<ul><li>Very slow when scanning hundreds of thousands of targets</li></ul>|<ul><li>Inaccurate results when scanning large port ranges with high rates [[1]](https://github.com/robertdavidgraham/masscan/issues/365)</li><li>Does not accept domain names as target input</li><li>Does not automatically adjust the transmission rate according to the environment</li></ul>|
-{: .tablelines}
 
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;}
@@ -120,18 +110,36 @@ While the ideas listed above are great, we still need to solve the **CONS** of e
 ### Target Networks
 
 The following subnets were chosen as the target networks for this research:
-<style>
-.tablelines table, .tablelines td, .tablelines th {
-        border: 1px solid black;
-        }
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-9wq8{border-color:inherit;text-align:center;vertical-align:middle}
+.tg .tg-uzvj{font-weight:bold;border-color:inherit;text-align:center;vertical-align:middle}
+.tg .tg-nrix{text-align:center;vertical-align:middle}
 </style>
-| Targets | Subnets    |
-| :------:|:----------:|
-| A       | A.A.0.0/16 |
-| B       | B.B.0.0/16 |
-| C       | C.C.0.0/16 |
-| D       | D.D.0.0/16 |
-{: .tablelines}
+<table class="tg">
+  <tr>
+    <th class="tg-uzvj">Targets</th>
+    <th class="tg-uzvj">Subnets</th>
+  </tr>
+  <tr>
+    <td class="tg-nrix"><br>A</td>
+    <td class="tg-nrix">A.A.0.0/16</td>
+  </tr>
+  <tr>
+    <td class="tg-9wq8">B</td>
+    <td class="tg-9wq8">B.B.0.0/16</td>
+  </tr>
+  <tr>
+    <td class="tg-nrix">C</td>
+    <td class="tg-nrix">C.C.0.0/16</td>
+  </tr>
+  <tr>
+    <td class="tg-9wq8">D</td>
+    <td class="tg-9wq8">D.D.0.0/16</td>
+  </tr>
+</table>
 
 ### Scanning Machine
 
@@ -464,17 +472,41 @@ _Observations:_
 Take a look first at the table below. Let's say for example that Masscan detected the following open ports (_column 2_) on each host. The combination of all open ports detected by Masscan will be used as the target ports when running an Nmap scan (_column 3_). 
 
 In our example, new open ports were detected (_**bold texts** in column 4_) by Nmap after finishing its scan. How did it happen? Masscan being an asynchronous scanner, it is possible that port `22` was missed on hosts `192.168.1.2` and `192.168.1.3`. Since we combined all detected open ports on every hosts and used them as the target ports for Nmap, this missed port (`22`) will be probe again. The caveat is that there's no assurance that Nmap will be able to detect it as open as there are other factors that might affect the scan. 
-<style>
-.tablelines table, .tablelines td, .tablelines th {
-        border: 1px solid black;
-        }
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-9wq8{border-color:inherit;text-align:center;vertical-align:middle}
+.tg .tg-wa1i{font-weight:bold;text-align:center;vertical-align:middle}
+.tg .tg-uzvj{font-weight:bold;border-color:inherit;text-align:center;vertical-align:middle}
+.tg .tg-nrix{text-align:center;vertical-align:middle}
 </style>
-| Hosts       | Open Ports Detected by Masscan | Target Ports During Nmap Scan | Open Ports Detected After Running Nmap |
-|:-----------:|:------------------------------:|:-----------------------------:|:--------------------------------------:|
-| 192.168.1.1 | 22,80,443                      | 22,80,443,8080,8888           | 22,80,443                              |                      
-| 192.168.1.2 | 8080,8888                      | 22,80,443,8080,8888           | **22**,8080,888                        |                      
-| 192.168.1.3 | 80,443                         | 22,80,443,8080,8888           | **22**,80,443                          |                      
-{: .tablelines}
+<table class="tg">
+  <tr>
+    <th class="tg-uzvj">Hosts</th>
+    <th class="tg-wa1i">Open Ports Detected by Masscan</th>
+    <th class="tg-wa1i">Target Ports During Nmap Scan</th>
+    <th class="tg-uzvj">Open Ports Detected After Running Nmap</th>
+  </tr>
+  <tr>
+    <td class="tg-nrix">192.168.1.1</td>
+    <td class="tg-nrix">22,80,443</td>
+    <td class="tg-nrix">22,80,443,8080,8888</td>
+    <td class="tg-nrix">22,80,443</td>
+  </tr>
+  <tr>
+    <td class="tg-9wq8">192.168.1.2</td>
+    <td class="tg-nrix">8080,8888</td>
+    <td class="tg-nrix">22,80,443,8080,8888</td>
+    <td class="tg-9wq8"><span style="font-weight:bold">22</span>,8080,888</td>
+  </tr>
+  <tr>
+    <td class="tg-nrix">192.168.1.3</td>
+    <td class="tg-nrix">80,443</td>
+    <td class="tg-nrix">22,80,443,8080,8888</td>
+    <td class="tg-nrix"><span style="font-weight:bold">22</span>,80,443</td>
+  </tr>
+</table>
 
 
 ### Test Case #4: Scan on the specific open ports on specific hosts identified by Masscan
