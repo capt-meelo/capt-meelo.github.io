@@ -47,9 +47,7 @@ In spite of the good performances, features, and results that Nmap and Masscan p
 .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
 .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
 .tg .tg-cly1{text-align:left;vertical-align:middle}
-.tg .tg-ncfi{font-weight:bold;background-color:#efefef;text-align:center;vertical-align:middle}
 .tg .tg-wa1i{font-weight:bold;text-align:center;vertical-align:middle}
-.tg .tg-gg7l{background-color:#efefef;text-align:left;vertical-align:middle}
 </style>
 <table class="tg">
   <tr>
@@ -63,9 +61,9 @@ In spite of the good performances, features, and results that Nmap and Masscan p
     <td class="tg-cly1"><br>- Very fast (uses asynchronous mode)- Syntax is very similar to Nmap</td>
   </tr>
   <tr>
-    <td class="tg-ncfi">CONS</td>
-    <td class="tg-gg7l">- Very slow when scanning hundreds of thousands of targets</td>
-    <td class="tg-gg7l">- Inaccurate results when scanning large port ranges with high rates <a href="https://github.com/robertdavidgraham/masscan/issues/365">[1]</a><br>- Does not accept domain names as target input<br>- Does not automatically adjust the transmission rate according to the environment<br></td>
+    <td class="tg-wa1i">CONS</td>
+    <td class="tg-cly1">- Very slow when scanning hundreds of thousands of targets</td>
+    <td class="tg-cly1">- Inaccurate results when scanning large port ranges with high rates <a href="https://github.com/robertdavidgraham/masscan/issues/365">[1]</a><br>- Does not accept domain names as target input<br>- Does not automatically adjust the transmission rate according to the environment<br></td>
   </tr>
 </table>
 
