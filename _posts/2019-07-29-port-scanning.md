@@ -232,7 +232,7 @@ _Charts:_
 _Observations:_
 - Running concurrents jobs took 2-3 times faster than the regular scan (Test Case #1), but results into fewer open ports.
 - Using the scanning machine's maximum rate capacity results into fewer open ports (5 jobs each w/ 100k rate).
-- Fewer jobs with high rate (5 jobs each w/ 50k rate) is better than more jobs with low rate (5 jobs each w/ 50k rate).
+- Fewer jobs with high rate (5 jobs each w/ 50k rate) is better than more jobs with low rate (20 jobs each w/ 10k rate).
 
 
 ### Test Case #3: Split 1-65535 port range into several ranges, and run X concurrent Masscan jobs, each with Y rate
