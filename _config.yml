@@ -47,6 +47,8 @@ plugins:
   - jekyll-seo-tag
   - jemoji
   - jekyll-auto-image
+  - jekyll-feed
+  - jekyll-sitemap 
 
 compress_html:
   clippings: all
