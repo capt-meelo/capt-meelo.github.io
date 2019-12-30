@@ -29,7 +29,7 @@ urls:
     - text: Exploit Dev
       url: /category/exploitdev
     - text: Bug Bounty
-      url: /category/bugbouty
+      url: /category/bugbounty
     - text: Disclosures
       url: /category/disclosures  
     - text: About Me
