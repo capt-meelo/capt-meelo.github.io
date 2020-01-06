@@ -16,8 +16,7 @@ I reread his post and I tried using the draft version of his extension ([burp3.p
 
 Using the codes from the post, I made the following modifications:
 
-1. This checks the original response for the presence of `Content-Type` header. If it exists, remove it. This is done as an assurance that there's only one `Content-Type` header in the response.
-
+This checks the original response for the presence of `Content-Type` header. If it exists, remove it. This is done as an assurance that there's only one `Content-Type` header in the response.
 ```python
 removeHeaders = ""
 for headers in responseHeaders:
@@ -30,8 +29,7 @@ except:
 
 ```
 
-2. After injecting the new `Content-Type` header, empty the response body. Going back to the first [extension](https://github.com/parsiya/Parsia-Code/tree/master/burp-filter-options) that I tried, it can be seen that Burp keep on recognizing the MIME type as **JSON** even if the `Content-Type` was already set to **CSS**. I discovered that this happens because of the presence of `{}` in the response body. I found out that emptying the body solves this issue.
-
+After injecting the new `Content-Type` header, empty the response body. Going back to the first [extension](https://github.com/parsiya/Parsia-Code/tree/master/burp-filter-options) that I tried, it can be seen that Burp keep on recognizing the MIME type as **JSON** even if the `Content-Type` was already set to **CSS**. I discovered that this happens because of the presence of `{}` in the response body. I found out that emptying the body solves this issue.
 ```python
 responseHeaders.add("Content-Type: text/css; charset=UTF-8")
 responseBodyBytes = ""
