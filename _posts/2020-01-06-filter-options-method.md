@@ -47,4 +47,4 @@ That's it! I tried it on other web applications and it's also working. Hooray!
 Once again, huge thanks to [@CryptoGangsta](https://twitter.com/cryptogangsta/) for his [blog post](https://parsiya.net/blog/2019-04-06-hiding-options-an-adventure-in-dealing-with-burp-proxy-in-an-extension/).
 
 My version of this Burp extension can be found at:
-- https://github.com/capt-meelo/filter-options-method
+- [https://github.com/capt-meelo/filter-options-method](https://github.com/capt-meelo/filter-options-method)
