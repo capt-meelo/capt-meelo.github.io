@@ -26,7 +26,6 @@ try:
     responseHeaders.remove(removeHeaders)
 except:
     pass
-
 ```
 
 After injecting the new `Content-Type` header, empty the response body. Going back to the first [extension](https://github.com/parsiya/Parsia-Code/tree/master/burp-filter-options) that I tried, it can be seen that Burp keep on recognizing the MIME type as **JSON** even if the `Content-Type` was already set to **CSS**. I discovered that this happens because of the presence of `{}` in the response body. I found out that emptying the body solves this issue.
