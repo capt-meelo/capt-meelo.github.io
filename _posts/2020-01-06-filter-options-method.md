@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Filtering the Pesky OPTIONS Method in Burp"
+title: "Filtering the OPTIONS Method in Burp"
 date: 2020-01-06
 categories: pentest
 ---
