@@ -5,6 +5,8 @@ date: 2020-01-06
 categories: pentest
 ---
 
+> _**UPDATE:** Instead of emptying the response, I decided to comment them out instead so the response body (if there's any) is still intact._
+
 My first week of 2020 started with testing an application which performs several CORS preflight requests. These "unwanted" preflight requests filled up my Burp's "HTTP history". 
 ![Lots of HTTP Options Method](/static/img/15/options-method.png)
 
@@ -28,10 +30,10 @@ except:
     pass
 ```
 
-After injecting the new `Content-Type` header, empty the response body. Going back to the first [extension](https://github.com/parsiya/Parsia-Code/tree/master/burp-filter-options) that I tried, it can be seen that Burp keep on recognizing the MIME type as **JSON** even if the `Content-Type` was already set to **CSS**. I discovered that this happens because of the presence of `{}` in the response body. I found out that emptying the body solves this issue.
+After injecting the new `Content-Type` header, comment out the response body. Going back to the first [extension](https://github.com/parsiya/Parsia-Code/tree/master/burp-filter-options) that I tried, it can be seen that Burp keep on recognizing the MIME type as **JSON** even if the `Content-Type` was already set to **CSS**. I discovered that this happens because of the presence of `{}` in the response body.
 ```python
 responseHeaders.add("Content-Type: text/css; charset=UTF-8")
-responseBodyBytes = ""
+responseBodyBytes = "/* Injected by 'Filter OPTIONS Method'\n\n" + responseBytes[responseInfo.getBodyOffset():] + "\n\nInjected by 'Filter OPTIONS Method' */"
 responseModified = self._helpers.buildHttpMessage(responseHeaders, responseBodyBytes)
 messageInfo.setResponse(responseModified)
 ```
