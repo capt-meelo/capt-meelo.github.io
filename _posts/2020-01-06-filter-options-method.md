@@ -5,7 +5,9 @@ date: 2020-01-06
 categories: pentest
 ---
 
-> _**UPDATE:** Instead of emptying the response, I decided to comment them out instead so the response body (if there's any) is still intact._
+> _**UPDATE 2:** The extension is now available from the [BApp Store](https://portswigger.net/bappstore/fa14ac579cff4682b32f39af8d3651e7)._
+
+> _**UPDATE 1:** Instead of emptying the response, I decided to comment them out instead so the response body (if there's any) is still intact._
 
 My first week of 2020 started with testing an application which performs several CORS preflight requests. These "unwanted" preflight requests filled up my Burp's "HTTP history". 
 ![Lots of HTTP Options Method](/static/img/15/options-method.png)
