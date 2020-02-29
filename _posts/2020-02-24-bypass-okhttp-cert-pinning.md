@@ -18,6 +18,8 @@ Since I had Xposed running on my test device, I first used the modules [SSLUnpin
 My second attempt involved the use of Frida. After [setting it up](https://frida.re/docs/android/) on my test device, I immediately tried the "most popular" Frida script on [CodeShare](https://codeshare.frida.re/) which is the [Universal Android SSL Pinning Bypass](https://codeshare.frida.re/@pcipolloni/universal-android-ssl-pinning-bypass-with-frida/) script. But what I got was just an error. 
 ![Frida Script #1](/static/img/16/frida-universal.png)
 
+> _**NOTE:** The reason I got the error because I forgot to copy Burp's cert into `/data/local/tmp/cert-der.crt`. Anyway, fixing the error still didn't solve my problem of bypassing the app's cert pinning implementation._
+
 I tried another [script](https://codeshare.frida.re/@akabe1/frida-multiple-unpinning/) but no luck as well. It did not even successfully detect the certificate pinning implementation used by the app.
 ![Frida Script #2](/static/img/16/frida-multiple-pinning.png)
 
