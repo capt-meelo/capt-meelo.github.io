@@ -9,6 +9,7 @@ I always try to learn new things, gain new knowledge, and share them to others. 
 
 ### Certifications
 
+* Certified Red Team Operator (CRTO)
 * Offensive Security Certified Expert (OSCE)
 * Offensive Security Certified Professional (OSCP)
 * Offensive Security Wireless Professional (OSWP)
