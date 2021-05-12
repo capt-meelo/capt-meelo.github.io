@@ -13,6 +13,8 @@ However, port scanning always comes with a trade-off between speed and accuracy.
 
 This research aims to find the balance between speed and accuracy during an Internet-wide port scanning using open-source and well-known tools.
 
+> I created [MassMap](https://github.com/capt-meelo/MassMap) to automate port scanning of large target IP addresses and/or CIDR notations. This tool was based on the result of this research.
+
 
 ## Port Scanning Overview
 ****
