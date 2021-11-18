@@ -24,14 +24,14 @@ share:
   twitter_username: CaptMeelo
 
 urls:
+    - text: Red Team
+      url: /category/redteam
+    - text: Malware Dev
+      url: /category/maldev
     - text: Pen Test
       url: /category/pentest
     - text: Exploit Dev
       url: /category/exploitdev
-    - text: Bug Bounty
-      url: /category/bugbounty
-    - text: Disclosures
-      url: /category/disclosures  
     - text: About Me
       url: /about/
       
