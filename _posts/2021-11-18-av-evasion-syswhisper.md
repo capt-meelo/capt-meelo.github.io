@@ -3,7 +3,7 @@ layout: post
 title: "When You sysWhisper Loud Enough for AV to Hear You"
 date: 2021-11-18
 categories: [redteam, maldev]
-description: "Evading Windows Defender after syscalls instructions got caught!"
+description: "Evading Windows Defender when SysWhisper got caught!"
 header-img: /static/img/17/int2eh.png
 ---
 
