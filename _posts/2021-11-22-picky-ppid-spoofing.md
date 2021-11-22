@@ -5,6 +5,7 @@ date: 2021-11-22
 categories: [redteam, maldev]
 description: "Performing PPID Spoofing by targeting a parent process with a specific integrity level."
 header-img: /static/img/18/spawned.png
+image: /static/img/18/spawned.png
 ---
 
 **Parent Process ID (PPID) Spoofing** is one of the techniques employed by malware authors to blend in the target system. This is done by making the malicious process look like it was spawned by another process. This helps evade detections that are based on anomalous parent-child process relationships.

@@ -5,6 +5,7 @@ date: 2021-11-18
 categories: [redteam, maldev]
 description: "Evading Windows Defender when SysWhisper got caught!"
 header-img: /static/img/17/int2eh.png
+image: /static/img/17/int2eh.png
 ---
 
 When I started my journey in Malware Development and AV/EDR Evasion, most of the articles and blog posts I have read recommended the use of **syscalls**. By using **syscalls**, an adversary can bypass detection controls (such as **user-land Hooking**) by jumping into the **kernel-mode**. Evasion is possible in this case since AV/EDR systems can only monitor an application's behaviour in **user-mode**. Another advantage is the fact that any Windows API functions used will not be referenced in the import table.
