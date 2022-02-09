@@ -9,7 +9,7 @@ As part of my preparation for the taking the CTP course and OSCE exam, I decided
 > _Vulnserver is a Windows based threaded TCP server application that is designed to be exploited. The program is intended to be used as a learning tool to teach about the process of software exploitation, as well as a good victim program for testing new exploitation techniques and shellcode._
 
 Before anything else, I first started exploring the application by connecting to it on port **9999/tcp**. Using the `HELP` command, all the available commands showed up. It can also be seen that all the commands (except from `HELP` and `EXIT`) only require one argument.
-![Vulnserver](/static/img/02/01.png)
+![Vulnserver](/static/img/2018-06-27-vulnserver-trun/01.png)
 
 Now that I already knew the available commands, I started fuzzing the `TRUN` command of the application using the following **SPIKE** template (`trun.spk`). *(Note: If you wanted to learn more about SPIKE, please read [this](https://resources.infosecinstitute.com/intro-to-fuzzing/).)*
 ```
@@ -19,16 +19,16 @@ s_string_variable("FUZZ");
 ```
 
 Using the template, I fuzzed the application for a short period of time using SPIKE’s **generic_send_tcp** interpreter.  
-![Spike](/static/img/02/02.png)
+![Spike](/static/img/2018-06-27-vulnserver-trun/02.png)
 
 Looking back at the debugger, the application instantly crashed. From here, I observed that **EAX** stores the command (`TRUN`) and the string sent by the fuzzer (`/.:/ AAAAA...`). **ESP** and **EIP** were also overwritten with the fuzzed string.
-![Fuzz](/static/img/02/03.png)
+![Fuzz](/static/img/2018-06-27-vulnserver-trun/03.png)
 
 To view the exact data sent by SPIKE, I opened up **Wireshark** and searched for the string `TRUN /.:/`, which was the string that was found stored in **EAX**.
-![Wireshark](/static/img/02/04.png)
+![Wireshark](/static/img/2018-06-27-vulnserver-trun/04.png)
 
 Based on the TCP stream, the number of bytes that was sent by the fuzzer and that caused the crash was **around 5000 bytes**.
-![TCP Stream](/static/img/02/05.png)
+![TCP Stream](/static/img/2018-06-27-vulnserver-trun/05.png)
 
 To verify the buffer length that caused the crash, I’ve written the following python script, which contains **5000 bytes of A's**.
 ```
@@ -53,7 +53,7 @@ s.close()
 ```
 
 Executing the python script successfully replicated the crash.
-![Crashed](/static/img/02/06.png)
+![Crashed](/static/img/2018-06-27-vulnserver-trun/06.png)
 
 The next step was to identify the four bytes that overwrote the **EIP** register. To do this, I first created a **unique string of 5000 bytes** using the **Mona** command `!mona pc 5000`.
 
@@ -80,10 +80,10 @@ s.close()
 ```
 
 After executing the updated script, the **EIP** was overwritten with `6F43376F`.
-![Unique String](/static/img/02/07.png)
+![Unique String](/static/img/2018-06-27-vulnserver-trun/07.png)
 
 To search the offset of the string that overwrote **EIP**, I used the following Mona command. The result showed that the offset was **2002 bytes**.
-![Offset](/static/img/02/08.png)
+![Offset](/static/img/2018-06-27-vulnserver-trun/08.png)
 
 The exploit code was then updated to ensure that the offset was correct.
 ```
@@ -110,7 +110,7 @@ s.close()
 ```
 
 The updated script verified that the offset was correct. From here, it can be seen that **EIP** was overwritten with **4 B’s**. It can also be observed that the buffer of C’s, which overwrote ESP, was located directly after the 4 bytes of B’s. This was good news because I could simply place my shellcode right after the 4bytes of B’s.
-![EIP Overwrite](/static/img/02/09.png)
+![EIP Overwrite](/static/img/2018-06-27-vulnserver-trun/09.png)
 
 But before that, I needed first to identify the bad characters. To do this, I generated all possible characters, from `\x00` to `\xFF`, using the Mona command `!mona bytearray`. These characters were stored in the variable `badchars` and added to the buffer. *(Note: The character **NULL byte (`\x00`)** was already removed since it’s almost always a bad character.)
 ```
@@ -146,13 +146,13 @@ print s.recv(1024)
 s.close()
 ```
 After sending the updated buffer, the memory dump showed all the expected characters (`\x01` to `\xFF`). This means that the only bad character was the NULL byte (`\x00`).
-![Bad Char](/static/img/02/10.png)
+![Bad Char](/static/img/2018-06-27-vulnserver-trun/10.png)
 
 The next step was to find an address which contains a `JMP ESP` instruction. It’s always recommended to use an address from the application itself, or the DLL that comes with the application. This is done for compatibility purposes - meaning that the exploit will work even if the application was installed on a different machine. For this instance, I only searched for a `JMP ESP` instruction from the **essfunc.dll** module that’s included with vulnserver.exe. I used the first address (`0x625011AF`) from the result of the Mona command `!mona jmp -r esp -m “essfunc.dll”`. This address was a good candidate since there’s no protection mechanism.  
-![JMP ESP](/static/img/02/11.png)
+![JMP ESP](/static/img/2018-06-27-vulnserver-trun/11.png)
 
 The next step was to generate a shellcode using MSFvenom.
-![Shellcode](/static/img/02/12.png)
+![Shellcode](/static/img/2018-06-27-vulnserver-trun/12.png)
 
 Using all the information that I gathered (list of good characters, address containing a `JMP ESP` instruction, and shellcode), I modified the exploit code to the following. I also added a **nopsled** (16 NOP instructions) before the shellcode to give room for the decoder to do its work.
 ```
@@ -207,7 +207,7 @@ print s.recv(1024)
 s.close()
 ```
 After running the final exploit code, the shellcode worked and the target machine opened up a “listening” port on **4444/tcp**.
-![Exploit](/static/img/02/13.png)
+![Exploit](/static/img/2018-06-27-vulnserver-trun/13.png)
 
 The last thing to do was to connect to the newly opened port to have a shell access.
-![Shell](/static/img/02/14.png)
+![Shell](/static/img/2018-06-27-vulnserver-trun/14.png)

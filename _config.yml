@@ -30,6 +30,8 @@ urls:
       url: /category/maldev
     - text: Pen Test
       url: /category/pentest
+    - text: Mobile
+      url: /category/mobile
     - text: Exploit Dev
       url: /category/exploitdev
     - text: About Me

@@ -6,7 +6,7 @@ categories: [exploitdev, osceprep]
 ---
 
 The next command that I tried exploiting was the `GTER` command. Just like in my [previous post](https://capt-meelo.github.io/exploitdev/osceprep/2018/06/27/vulnserver-trun.html), I started fuzzing this command using the following **SPIKE** template.
-![GTER Spike](/static/img/03/01.png)
+![GTER Spike](/static/img/2018-06-28-vulnserver-gter/01.png)
 
 The application crashed when SPIKE sent **around 5000 bytes** of data. To know how the fuzzing was done, please visit my [previous post](https://capt-meelo.github.io/exploitdev/osceprep/2018/06/27/vulnserver-trun.html). 
 
@@ -33,7 +33,7 @@ s.close()
 ```
 
 I executed the exploit skeleton to cause a crash and to verify that it’s working. From here, I observed that **EAX** stored the command (`GTER`) and the string sent by the fuzzer (`/.:/ AAAAA…`). **ESP** and **EIP** were also overwritten with the fuzzed string. One thing to note here was that **ESP** was only overwritten with 20 bytes of A’s.
-![Crash](/static/img/03/02.png)
+![Crash](/static/img/2018-06-28-vulnserver-gter/02.png)
 
 To identify the offset that overwrote **EIP**, I used `!mona pc 5000` to create 5000 bytes of unique string that will be used as the buffer.
 ```python
@@ -58,10 +58,10 @@ s.close()
 ```
 
 Executing the updated code caused **EIP** to be overwritten with `41396541`.
-![EIP](/static/img/03/03.png)
+![EIP](/static/img/2018-06-28-vulnserver-gter/03.png)
 
 Using `!mona findmsp`, the data `41396541` was identified with an offset of **147 bytes**.
-![Offset](/static/img/03/04.png)
+![Offset](/static/img/2018-06-28-vulnserver-gter/04.png)
 
 I modified the exploit code again so that **4 B’s** would overwrite **EIP**.
 ```python
@@ -88,7 +88,7 @@ s.close()
 ```
 
 It did overwrite **EIP** with 4 B’s so the offset was correct. I also observed that **ESP**, which was overwritten with only 20 bytes of C’s, was located right after **EIP**. The buffer of C’s was not enough for a shellcode, which has an average size of 350 bytes.
-![4 B's](/static/img/03/05.png)
+![4 B's](/static/img/2018-06-28-vulnserver-gter/05.png)
 
 Before solving the problem with the shellcode space, I first solved the problem with identifying the bad characters. I only had **171 bytes** (147 A’s + 4 B’s + 20 C’s) of buffer space. This was not enough to hold the  255 bytes of characters from `\x01` to `\xFF`. _(Note: The **NULL** character (`\x00`) was already removed.)_ To deal with the limited buffer space, I had to split them into two. I first sent the characters from `\x01` to `\x9F`.
 ```python
@@ -118,7 +118,7 @@ s.close()
 ```
 
 As seen, no bad characters was detected from `\x01` to `\x9F`.
-![1st Batch](/static/img/03/06.png)
+![1st Batch](/static/img/2018-06-28-vulnserver-gter/06.png)
 
 After that, I used the remaining characters `\xA0` to `\xFF`.
 ```python
@@ -146,10 +146,10 @@ s.close()
 ```
 
 Again, no bad characters was identified from `\xA0` to `\xFF`. So, the only bad character was the `\x00`.
-![2nd Batch](/static/img/03/07.png)
+![2nd Batch](/static/img/2018-06-28-vulnserver-gter/07.png)
 
 The next thing that I did was identify an address containing a `JMP ESP` instruction so I could redirect the execution of the program to the buffer of C’s. Using `!mona jmp -r esp -m “essfunc.dll”`, the address `0x625011AF` was found.
-![JMP ESP](/static/img/03/08.png)
+![JMP ESP](/static/img/2018-06-28-vulnserver-gter/08.png)
 
 The code was modified again to the following.
 ```python
@@ -176,13 +176,13 @@ s.close()
 ```
 
 The code worked and **EIP** now points to **ESP**, which contains the buffer of C’s. Again, 20 bytes was not enough to hold a shellcode. By observing the stack, I discovered that the buffer of A’s was located above the buffer of C’s. While the buffer of A’s (147 bytes) was still not enough to host a shellcode, that space would be enough to hold an egghunter.
-![Buffer of A's](/static/img/03/09.png)
+![Buffer of A's](/static/img/2018-06-28-vulnserver-gter/09.png)
 
 Before that, I first needed to redirect the program flow to the start of A’s. The buffer of A’s started at `0x00B7F975`, while the buffer of C’s was located at `0x00B7FA0C`. The difference between them was `0xFFFFFF69` **(-151 bytes)**. So, I had to jump back 151 bytes to reach the buffer of A’s.
-![Redirection to A's](/static/img/03/10.png)
+![Redirection to A's](/static/img/2018-06-28-vulnserver-gter/10.png)
 
 Using `!mona assemble -s “JMP 0xFFFFFF69”`, I was able to get the equivalent opcode of the instruction `JMP 0xFFFFFF69`. The opcode was good as it didn’t contain a bad character.
-![Jump Back](/static/img/03/11.png)
+![Jump Back](/static/img/2018-06-28-vulnserver-gter/11.png)
 
 I then modified the exploit code to the following, and executed it.
 ```python
@@ -210,10 +210,10 @@ s.close()
 ```
 
 The code worked and I was able to reach the start of A’s.
-![Jump Back Worked](/static/img/03/12.png)
+![Jump Back Worked](/static/img/2018-06-28-vulnserver-gter/12.png)
 
 Since everything was working according to what I wanted, I then generated an egghunter using `!mona egg -t Capt -cpb "\x00”` with a tag/egg of **Capt**. I also made sure that there will be no bad character from the generated egghunter.
-![Egghunter](/static/img/03/13.png)
+![Egghunter](/static/img/2018-06-28-vulnserver-gter/13.png)
 
 To verify that everything was working so far, I executed the following code.
 ```python
@@ -247,14 +247,14 @@ s.close()
 ```
 
 As seen here, the buffer of A’s was replaced with the egghunter.
-![Egghunter Worked](/static/img/03/14.png)
+![Egghunter Worked](/static/img/2018-06-28-vulnserver-gter/14.png)
 
 Then I generated a shellcode using the following.
-![Shellcode](/static/img/03/15.png)
+![Shellcode](/static/img/2018-06-28-vulnserver-gter/15.png)
 
 The only problem left was the location on where to place the shellcode. I didn’t have more than 355 bytes of buffer space to place my shellcode.
 
-![Meme](/static/img/03/16.png)
+![Meme](/static/img/2018-06-28-vulnserver-gter/16.png)
 
 To solve the problem, I reused the other commands available from vulnserver and hoped that my shellcode would be placed somewhere in memory. It should be noted that I already removed the `GTER` command since it’s the command that I’m exploiting. I also removed the `KSTET` command since it’s causing problem when sending my shellcode using it. To test if my proposed solution would work, I modified the code to the following and executed it.
 ```python
@@ -327,12 +327,12 @@ s.close()
 ```
 
 Yay! It worked! As seen here, the egghunter found the string “CaptCapt” right after the `STATS` command.
-![Success](/static/img/03/17.png)
+![Success](/static/img/2018-06-28-vulnserver-gter/17.png)
 
 The shellcode worked and the target machine opened up a “listening” port on **4444/tcp**.
-![Shellcode Worked](/static/img/03/18.png)
+![Shellcode Worked](/static/img/2018-06-28-vulnserver-gter/18.png)
 
 The last thing to do was to connect to the newly opened port to have a shell access.
-![Shell](/static/img/03/19.png)
+![Shell](/static/img/2018-06-28-vulnserver-gter/19.png)
 
 I really enjoyed and learned a lot from this exploitation because of the several problems that I encountered along the way.
