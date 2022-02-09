@@ -15,7 +15,7 @@ In this post, I’m going to show you how I pwned several web applications, spec
 ## Identification
 
 The simplest way to check if the application is using Telerik Web UI is to view its HTML source code. 
-![Source1](/static/img/10/01.png)
+![Source1](/static/img/2018-08-03-pwning-with-telerik/01.png)
 > _**TIP #1:** There are times where you’ll not find exactly the string **Telerik.Web.UI** from the HTML code. However, if you find the string **Telerik**, just keep on browsing the other pages of the application and search for the string **Telerik.Web.UI** again._
 
 
@@ -23,10 +23,10 @@ If you’ve identified that the application is using Telerik Web UI, the next st
 
 
 Finding the version can either be easy or tricky. To get the exact version, just view the HTML code. In the case below, the version information sits right next to the string **Telerik.Web.UI**. That’s easy.
-![Source2](/static/img/10/02.png)
+![Source2](/static/img/2018-08-03-pwning-with-telerik/02.png)
 
 However, there are cases where the version is not located right next to the string “**Telerik.Web.UI**”. Another way to identify the version of Telerik Web UI is by going through the HTML comments just like here. 
-![Source3](/static/img/10/03.png)
+![Source3](/static/img/2018-08-03-pwning-with-telerik/03.png)
 
 Once you have the version information, cross-reference it with the list of vulnerable versions. Based on the [exploitation tool](https://github.com/bao7uo/dp_crypto) written by Paul Taylor ([@bao7uo](https://twitter.com/bao7uo)), the following versions are affected:
 ```
@@ -52,7 +52,7 @@ Once you have the version information, cross-reference it with the list of vulne
 ## Exploitation
 
 Before jumping to the exploitation, we have to locate first the "Dialog Handler" **Telerik.Web.UI.DialogHandler.aspx**. Most of the time, it’s located at the root directory of the application. If it’s not there, try the sub-directories. To verify if you’ve found the right location, you should see the string "**Loading the dialog…**" when accessing the dialog handler.
-![Loading](/static/img/10/04.png)
+![Loading](/static/img/2018-08-03-pwning-with-telerik/04.png)
 > _**TIP #2:** Sometimes, the sub-directory where the dialog handler is located (or where Telerik Web UI is located in general) can be found from the HTML source code._
 
 For the exploitation, use the tool written by Paul Taylor which can be downloaded [here](https://github.com/bao7uo/dp_crypto). Credits and big thanks to him for writing this one. 
@@ -84,23 +84,23 @@ Total web requests: 1781
 ```
 
 By visiting the "**Document Manager**" link, we see that we now have access to all the files and folders of the web server. More importantly, we see that we can upload arbitrary files to the server.
-![Document Manager](/static/img/10/05.png)
+![Document Manager](/static/img/2018-08-03-pwning-with-telerik/05.png)
 
 Here’s an example of the shell **cmd.aspx** file that I uploaded. 
-![Shell](/static/img/10/06.png)
+![Shell](/static/img/2018-08-03-pwning-with-telerik/06.png)
 
 And here’s an example of a command execution using the uploaded shell.
-![Shell Upload](/static/img/10/07.png)
+![Shell Upload](/static/img/2018-08-03-pwning-with-telerik/07.png)
 
 ## Telewreck
 
 As part of my learning process, I decided to create a Burp Suite extension that can detect and exploit vulnerable instances of Telerik Web UI. I named it **Telewreck** and is available at [https://github.com/capt-meelo/Telewreck](https://github.com/capt-meelo/Telewreck). 
 
 When running a passive scan, this extension will look for vulnerable versions of Telerik Web UI.
-![Passive](/static/img/10/08.png)
+![Passive](/static/img/2018-08-03-pwning-with-telerik/08.png)
 
 A tab where you can perform the exploitation part is also available.
-![Tab](/static/img/10/09.png)
+![Tab](/static/img/2018-08-03-pwning-with-telerik/09.png)
 
 That's it! 
 

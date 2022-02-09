@@ -6,7 +6,7 @@ categories: pentest
 ---
 
 ## Introduction
-![Offsec](/static/img/11/offsec.png)
+![Offsec](/static/img/2019-01-16-offsec-certs/offsec.png)
 
 
 Offensive Security certifications are very popular and are sought-after courses/certifications by people who are interested in the offensive side of information security. Until now, people are still willing to spend their money to take the courses and pass the certifications. However, several companies out there are establishing their own hacking courses/certifications/labs, and they're starting to become popular among the folks of the penetration testing community. With the rise of several courses, the question is "**Are Offensive Security courses/certifications still worth the price?**" Or is it wiser to spend money elsewhere? 
@@ -19,7 +19,7 @@ I think it's time to write my thoughts about them now that I have completed OSCE
 >_**Take note that everything written here is based on my own opinion and views. I do not have any intention to discourage people from taking Offensive Security's courses and certifications. No hate or bitterness against Offensive Security.**_
 
 ## OSCP
-![OSCP](/static/img/11/oscp.png)
+![OSCP](/static/img/2019-01-16-offsec-certs/oscp.png)
 
 
 Let's start with the most popular certification of Offensive Security - OSCP. This is the most sought-after certification by people who want to get into penetration testing. Nowadays, everyone want this certification on their CV because of the higher chance of acceptance in the hiring process. Almost every job posting for a pentest position requires OSCP certification. The course material is great and it teaches the skills, mindset, and methodology needed to get the students started with their hacking journey. However, the material is limited. Based on my experience, I was not able to utilized what I learned from this course when I started doing internal network and active directory pentesting. While the lab teaches students how to pivot from one machine/network to another, the lab still doesn't mimic the real-world corporate environment. The course does not cover Man-in-the-Middle attacks as well, which is the most common attack used by pentesters when doing an internal network testing. 
@@ -32,7 +32,7 @@ You can also check [Pentester Academy's Windows Red Team Lab][redteam] which foc
 
 
 ## OSCE
-![OSCE](/static/img/11/osce.png)
+![OSCE](/static/img/2019-01-16-offsec-certs/osce.png)
 
 
 OSCE is my latest certifcation. The exploit development section of the CTP course focuses only on Windows environment. Some might think it’s one of the weaknesses of this course, but for me, it’s not. I don’t mind if exploit development on Linux environment isn’t covered. My biggest concern is the lack of value of the course material. We know that Offensive Security always want their students to do the extra mile and to “try harder” - meaning they expect us to research related materials about a topic, and not just rely on what is presented from the course material. I get their motives and even support the need to go the extra mile. My problem is that the information from the course is lacking, and there is no deep explanation of some of the topics. Since I paid for the course material, I expected to learn a lot from it. Unfortunately, that’s not the case. **I learned and gained more knowledge from [Corelan's][corelan] and [FuzzySecurity’s][fuzzysec] tutorials, and from googling.**
@@ -45,7 +45,7 @@ The exam is a different scenario. I find it gruelling and challenging, yet at th
 
 
 ## OSWP
-![OSWP](/static/img/11/oswp.png)
+![OSWP](/static/img/2019-01-16-offsec-certs/oswp.png)
 
 
 With all honesty, I took OSWP for the sake of having it on my CV. As we all know, the contents of this course are very outdated. While the course teaches you the knowledge you need, the value you’re getting is minimal. I recommend you just spend your money on other courses like [Pentester Academy’s Wi-Fi Security and Pentesting][wifi] as you’ll learn more from this course as Vivek really spends his time and effort in explaining the topic deeply. 

@@ -28,10 +28,10 @@ s.close()
 ```
 
 Executing this code caused a crash to the application. As observed, **EIP** was not overwritten with A’s. So, what caused the crash?
-![Crash](/static/img/05/01.png)
+![Crash](/static/img/2018-06-30-vulnserver-gmon/01.png)
 
 By observing the **SEH chain**, it was seen that the SEH record were overwritten with A’s. So, this what caused the crash to the application.
-![SEH Chain](/static/img/05/02.png)
+![SEH Chain](/static/img/2018-06-30-vulnserver-gmon/02.png)
 
 To determine the offset that overwrote the **SEH chain**, I `!mona pc 5000` to generate a unique string of 5000 bytes, and then modified the code.
 ```python
@@ -56,7 +56,7 @@ s.close()
 ```
 
 Using `!mona findmsp`, it was discovered that the **nSEH** record was overwritten with an offset of **3495 bytes**.
-![Offset](/static/img/05/03.png)
+![Offset](/static/img/2018-06-30-vulnserver-gmon/03.png)
 
 I then modified the exploit to the following.
 ```python
@@ -87,10 +87,10 @@ s.close()
 ```
 
 As seen, the offset was correct. **nSEH** was overwritten with 4 B’s, while 4 C’s overwrote **SEH**.
-![Overwrite](/static/img/05/04.png)
+![Overwrite](/static/img/2018-06-30-vulnserver-gmon/04.png)
 
 As seen in this image, the buffer of D’s was located right after the B’s and C’s. This was a good place to store all the candidates for bad characters.
-![Buffer of D's](/static/img/05/05.png)
+![Buffer of D's](/static/img/2018-06-30-vulnserver-gmon/05.png)
 
 I executed the modified code to identify the bad characters. _(Note: The **NULL** (`\x00`) character was already removed.)_
 ```python
@@ -131,10 +131,10 @@ s.close()
 ```
 
 As seen, no other bad characters were identified except the NULL byte.
-![Badchars](/static/img/05/06.png)
+![Badchars](/static/img/2018-06-30-vulnserver-gmon/06.png)
 
 To identify an address containing the `POP POP RET` instructions, I used `!mona seh`. I used the first instruction from the result, which was `0x625010B4`. 
-![PopPopRet](/static/img/05/07.png)
+![PopPopRet](/static/img/2018-06-30-vulnserver-gmon/07.png)
 
 The following shows the updated code.
 ```python
@@ -165,13 +165,13 @@ s.close()
 ```
 
 The updated code worked and **SEH** was overwritten with the address of the `POP POP RET` instructions.
-![PopPopRet Worked](/static/img/05/08.png)
+![PopPopRet Worked](/static/img/2018-06-30-vulnserver-gmon/08.png)
 
 By passing the exception, by pressing **SHIFT + F9**, I was redirected to the address of the `POP POP RET` instructions.
-![Pass Exec](/static/img/05/09.png)
+![Pass Exec](/static/img/2018-06-30-vulnserver-gmon/09.png)
 
 Stepping into the `POP POP RET` instructions redirected me to the **nSEH** record, which contained the 4 bytes of B’s. 
-![nSEH](/static/img/05/10.png)
+![nSEH](/static/img/2018-06-30-vulnserver-gmon/10.png)
 
 The next step would be to change this 4 B’s with a jump instruction that would redirect me to my shellcode. However, as seen above, I couldn’t use the buffer of D’s as it’s only 28 bytes long. Even for an egghunter, that wouldn’t be enough since it requires 32 bytes of space. Since the buffer of A’s was located right above the buffer of 4 B’s, I had to jump back. For this, I couldn’t make a "long jump" as the equivalent opcodes was 5 bytes long. That wouldn’t fit inside **nSEH** with only 4 bytes of space. Instead, I jumped back 50 bytes just like in my [previous post](https://capt-meelo.github.io/exploitdev/osceprep/2018/06/29/vulnserver-kstet.html). The following shows the code that I used.
 ```python
@@ -202,10 +202,10 @@ s.close()
 ```
 
 As seen here, the negative jump worked. Next step would be to place the egghunter code in this location.
-![Negative Jump](/static/img/05/11.png)
+![Negative Jump](/static/img/2018-06-30-vulnserver-gmon/11.png)
 
 I used `!mona egg -t CAPT` to generate the egghunter.
-![Egghunter](/static/img/05/12.png)
+![Egghunter](/static/img/2018-06-30-vulnserver-gmon/12.png)
 
 Before using the egghunter, I had to determine first the offset (the number of A’s) before the egghunter code. To do that, I made a simple computation: **original 3495 bytes of A’s + 2 bytes for the backward jump opcodes - 50 bytes for the length of backward jump = 3447 bytes of A’s**. The following shows the updated code.
 ```python
@@ -243,10 +243,10 @@ s.close()
 ```
 
 The redirection and calculation worked, and the current instruction pointed to the start of the egghunter.
-![Start of Egghunter](/static/img/05/13.png)
+![Start of Egghunter](/static/img/2018-06-30-vulnserver-gmon/13.png)
 
 Then I generated a shellcode using the MSFvenom.
-![Shell](/static/img/05/14.png)
+![Shell](/static/img/2018-06-30-vulnserver-gmon/14.png)
 
 Since the remaining buffer of A’s was still large, I decided to place the egg/tag and the shellcode right after the `GMON` command.
 ```python
@@ -313,13 +313,13 @@ s.close()
 ```
 
 The following shows the execution flow.
-![Flow](/static/img/05/15.png)
+![Flow](/static/img/2018-06-30-vulnserver-gmon/15.png)
 
 Upon executing the final exploit code, the egghunter successfully located the egg/tag and my shellcode after the `GMON` command.
-![Egg](/static/img/05/16.png)
+![Egg](/static/img/2018-06-30-vulnserver-gmon/16.png)
 
 The shellcode worked and the target machine spawned a “listening” port on **4444/tcp**.
-![Success](/static/img/05/17.png)
+![Success](/static/img/2018-06-30-vulnserver-gmon/17.png)
 
 The last thing to do was to connect to the newly opened port to have a shell access.
-![Shell](/static/img/05/18.png)
+![Shell](/static/img/2018-06-30-vulnserver-gmon/18.png)
