@@ -10,13 +10,13 @@ categories: pentest
 > _**UPDATE 1:** Instead of emptying the response, I decided to comment them out instead so the response body (if there's any) is still intact._
 
 My first week of 2020 started with testing an application which performs several CORS preflight requests. These "unwanted" preflight requests filled up my Burp's "HTTP history". 
-![Lots of HTTP Options Method](/static/img/15/options-method.png)
+![Lots of HTTP Options Method](/static/img/2020-01-06-filter-options-method/options-method.png)
 
 I wanted to filter out these `OPTIONS` requests, so I could have an uncluttered "HTTP history". Unfortunately, Burp does not have an option to do what I wanted. Thankfully, our friend Google is always there to help me. The search result led me to this [blog post](https://parsiya.net/blog/2019-04-06-hiding-options-an-adventure-in-dealing-with-burp-proxy-in-an-extension/) and [@CryptoGangsta](https://twitter.com/cryptogangsta/) has a detailed walkthrough and explanation on how he wrote a Burp Extension to filter out these `OPTIONS` requests. His post contains a link to his Burp Extension [burp-filter-options](https://github.com/parsiya/Parsia-Code/tree/master/burp-filter-options), so I tried it. The extension worked and was able to change the `Content-Type` to **CSS**, but Burp still categorized the responses as **JSON** instead of **CSS**.
-![Extension Failed](/static/img/15/extension-failed.png)
+![Extension Failed](/static/img/2020-01-06-filter-options-method/extension-failed.png)
 
 I reread his post and I tried using the draft version of his extension ([burp3.py](https://github.com/parsiya/Parsia-Code/blob/master/burp-filter-options/blog/burp3.py)). Again, the extension successfully injected the new `Content-Type` (**CSS**) header but the original `Content-Type` (**JSON**) header still existed.
-![Extension Failed Again](/static/img/15/still-failed.png)
+![Extension Failed Again](/static/img/2020-01-06-filter-options-method/still-failed.png)
 
 Using the codes from the post, I made the following modifications:
 
@@ -41,10 +41,10 @@ messageInfo.setResponse(responseModified)
 ```
 
 By doing these modifications, I now got what I wanted! 
-![Extension Worked](/static/img/15/extension-worked.png)
+![Extension Worked](/static/img/2020-01-06-filter-options-method/extension-worked.png)
 
 Now, to filter these `OPTIONS` requests from "HTTP history", untick the **CSS** checkbox under the "Filter by MIME type" option.
-![Filter CSS](/static/img/15/filter-css.png)
+![Filter CSS](/static/img/2020-01-06-filter-options-method/filter-css.png)
 
 That's it! I tried it on other web applications and it's also working. Hooray! 
 

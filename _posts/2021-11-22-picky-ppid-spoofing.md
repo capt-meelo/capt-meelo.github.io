@@ -4,8 +4,8 @@ title: "Picky PPID Spoofing"
 date: 2021-11-22
 categories: [redteam, maldev]
 description: "Performing PPID Spoofing by targeting a parent process with a specific integrity level."
-header-img: /static/img/18/spawned.png
-image: /static/img/18/spawned.png
+header-img: /static/img/2021-11-22-picky-ppid-spoofing/spawned.png
+image: /static/img/2021-11-22-picky-ppid-spoofing/spawned.png
 ---
 
 **Parent Process ID (PPID) Spoofing** is one of the techniques employed by malware authors to blend in the target system. This is done by making the malicious process look like it was spawned by another process. This helps evade detections that are based on anomalous parent-child process relationships.
@@ -14,7 +14,7 @@ When I started learning and implementing this technique, the first question that
 
 Using [Process Hacker](https://processhacker.sourceforge.io/), I noticed several instances of the `RuntimeBroker.exe` process running under the parent process `svchost.exe`. If this parent-child process relationship is common, then this is a good candidate for spoofing.
 
-![Several RuntimBroker.exe Running Under svchost.exe](/static/img/18/runtimebroker.png)
+![Several RuntimBroker.exe Running Under svchost.exe](/static/img/2021-11-22-picky-ppid-spoofing/runtimebroker.png)
 
 ## The Usual PPID Spoofing
 
@@ -81,11 +81,11 @@ PS C:\Users\Meelo\Desktop> .\PickyPPIDSpoofing.exe
 
 Based on the output above, the code is trying to spoof `svchost.exe` with a PID of **860**. And if we look at [Process Hacker](https://processhacker.sourceforge.io/), this process has an integrity level of **SYSTEM**. Since we're running as a standard user, with **MEDIUM** integrity level, we don't have access to processes running with **SYSTEM** integrity level.
 
-![Integrity Level of svchost.exe](/static/img/18/integrity-level.png)
+![Integrity Level of svchost.exe](/static/img/2021-11-22-picky-ppid-spoofing/integrity-level.png)
 
 So how can we solve this? If we scroll down in [Process Hacker](https://processhacker.sourceforge.io/), we can see some `svchost.exe` processes with an integrity level of **MEDIUM**. 
 
-![svchost.exe Running with MEDIUM Integrity Level](/static/img/18/svchost-medium.png)
+![svchost.exe Running with MEDIUM Integrity Level](/static/img/2021-11-22-picky-ppid-spoofing/svchost-medium.png)
 
 Technically, this can be solved easily by hard-coding the PID of the parent process we're targetting. In the image above, that would be **2740**, **2824**, or **4620**. However, this is only applicable if we could get the PIDs of the processes running on the target system; which means we should already have access to our target.
 
@@ -95,7 +95,7 @@ This wouldn't work if you're implementing PPID Spoofing in your malware that wil
 
 By analyzing the console output above, we can see that the `getPPID` function only returns the very first instance of `svchost.exe` (with a PID of **860**), which has an integrity level of **SYSTEM**.
 
-![First Instance of svchost.exe](/static/img/18/first-instance.png)
+![First Instance of svchost.exe](/static/img/2021-11-22-picky-ppid-spoofing/first-instance.png)
 
 So to solve this issue, we have to add another function that would check the integrity level of each process. This is done using the following code, which uses the WinAPI function `GetTokenInformation` to retrieve information about the access token associated with a process. Then a comparison is made against [well-known SIDs](https://docs.microsoft.com/en-us/windows/win32/secauthz/well-known-sids) to identify the integrity level of the process. 
 ```cpp
@@ -253,4 +253,4 @@ PS C:\Users\Meelo\Desktop> .\PickyPPIDSpoofing.exe
 
 The main difference of this output from the previous one is the PID of `svchost.exe` has changed from **860** to **2740**. We can also see that we've successfully obtained a process handle. As a result, `RuntimeBroker.exe` was spawned under the parent process of `svchost.exe`.
 
-![Successfully Spawned RuntimeBroker.exe](/static/img/18/spawned.png)
+![Successfully Spawned RuntimeBroker.exe](/static/img/2021-11-22-picky-ppid-spoofing/spawned.png)

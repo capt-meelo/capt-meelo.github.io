@@ -22,7 +22,7 @@ Given a target domain, there are two ways to expand its attack surface:
 2. Identify all domain names "associated" with the target domain. 
 
 The illustration below helps differentiate what the two methods do.
-![Asset Discovery](/static/img/13/asset-disc.png)
+![Asset Discovery](/static/img/2019-09-02-asset-enumeration/asset-disc.png)
 
 Now let's take a look at the methodology that I'm using to enumerate both the subdomains and the associated domains. 
 
@@ -59,13 +59,13 @@ Not all subdomains gathered from the above commands will resolve to its correspo
 Through acquisitions and merges, it is not only a company's business that grows but also their domains and associated domains. For example, when "Facebook, Inc." acquired [Instragram](https://newsroom.fb.com/news/2012/04/facebook-to-acquire-instagram/) and [Whatsapp](https://newsroom.fb.com/news/2014/02/facebook-to-acquire-whatsapp/), the domains `instragram.com` and `whatsapp.com` became associated with `facebook.com`. 
 
 As we can see from the following `whois` queries below, the domains `facebook.com`, `instagram.com`, and `whatsapp.com` were all registered by the email address `domain@fb.com`.
-![WHOIS Records](/static/img/13/whois.png)
+![WHOIS Records](/static/img/2019-09-02-asset-enumeration/whois.png)
 
 To enumerate domains that are associated with the target domain, we could use the `Registrant Email` record taken from a WHOIS search result and perform a **Reverse WHOIS Lookup**. This can be done using sites such as [viewdns.info](https://viewdns.info/reversewhois/) or [whoisxmlapi.com](https://tools.whoisxmlapi.com/reverse-whois-search).
-![Reverse WHOIS](/static/img/13/viewdns1.png)
+![Reverse WHOIS](/static/img/2019-09-02-asset-enumeration/viewdns1.png)
 
 You can also run a Reverse WHOIS Lookup based on the `Registrant Organization` record to get different results.
-![Reverse WHOIS](/static/img/13/viewdns2.png)
+![Reverse WHOIS](/static/img/2019-09-02-asset-enumeration/viewdns2.png)
 
 It is normal to get overlapping results when performing Reverse WHOIS Lookup based on `Registrant Email` and `Registrant Organization` records, so make some post-processing and remove the duplicates.
 
@@ -81,7 +81,7 @@ Now that we've already enumerated the target domain "vertically" and "horizontal
 ![NO!](https://media.giphy.com/media/LOEI8jsNKPmzdJYvhJ/giphy.gif)
 
 Wouldn't it be nice if we expand more our target's attack surface by filling up the empty areas (_shown in red boxes_) below?
-![Attack Surface](/static/img/13/attack-surface.png)
+![Attack Surface](/static/img/2019-09-02-asset-enumeration/attack-surface.png)
 
 We can do this by doing subdomain enumeration on every associated domains that we've discovered from the previous step. Obviously, this will take way more time than doing a subdomain enumeration on the target domain alone. But who cares? Right? Remember, `a larger attack surface = more chances of pwning`.
 

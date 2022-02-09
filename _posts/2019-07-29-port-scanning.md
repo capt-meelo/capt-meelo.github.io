@@ -180,10 +180,10 @@ _Rates Used:_
 - 50K
 
 During the experiment, the maximum rate that my VPS can run is only around 250kpps. This is because the scanning machine does not support **PF_RING**.
-![250K](/static/img/12/250kpps.jpg)
+![250K](/static/img/2019-07-29-port-scanning/250kpps.jpg)
 
 _Charts:_
-![masscan-test1](/static/img/12/masscan-test1.png)
+![masscan-test1](/static/img/2019-07-29-port-scanning/masscan-test1.png)
 
 _Observation:_
 - Slower rate results into more open ports, but at the expense of a longer scanning time.
@@ -206,7 +206,7 @@ for subnet in ipaddress.ip_network(target).subnets(new_prefix=prefix):
 ```
 
 Here's a snippet of what the above code does:
-![split-sub](/static/img/12/split_sub.jpg)
+![split-sub](/static/img/2019-07-29-port-scanning/split_sub.jpg)
 
 The rates used for each job were based on the idea of maximizing the rate that the scanning machine can handle. In my case, my scanning machine can only handle 250kpps so if I'm going to run 5 parallel jobs, each job can use a rate of 50kpps.
 > _Since the maximum rate of a machine is not "absolute" (not exactly 250kpps in this case), you can set the rate of each job so the total rate would be equal to 80-90% of the maximum rate._ 
@@ -217,7 +217,7 @@ python3 split.py TARGET_SUBNET 20 | parallel -j JOBS "masscan -p 1-65535 --rate 
 ```
 
 Here's what the above command does when executed. In this instance, 20 Masscan jobs, each with 10kpps rate, were running at the same time.
-![masscan-20jobs](/static/img/12/masscan-20jobs.png)
+![masscan-20jobs](/static/img/2019-07-29-port-scanning/masscan-20jobs.png)
 
 _Rates and Jobs Used:_
 - 5 jobs each w/ 100k rate
@@ -229,7 +229,7 @@ _Rates and Jobs Used:_
 > - _Other combinations such as 10 jobs each w/ 20k rate is doable, however I can't cover all possible combinations due to limited time and budget._
 
 _Charts:_
-![masscan-test2](/static/img/12/masscan-test2.png)
+![masscan-test2](/static/img/2019-07-29-port-scanning/masscan-test2.png)
 
 _Observations:_
 - Running concurrents jobs took 2-3 times faster than the regular scan (Test Case #1), but results into fewer open ports.
@@ -264,7 +264,7 @@ _Rates and Jobs Used:_
 - 2 jobs each w/ 100k rate
 
 _Charts:_
-![masscan-test3-1](/static/img/12/masscan-test3-1.png)
+![masscan-test3-1](/static/img/2019-07-29-port-scanning/masscan-test3-1.png)
 
 
 _**Split #2:** 2 Port Ranges_
@@ -278,7 +278,7 @@ _Rates and Jobs Used:_
 - 2 jobs each w/ 125k rate
 
 _Charts:_
-![masscan-test3-2](/static/img/12/masscan-test3-2.png)
+![masscan-test3-2](/static/img/2019-07-29-port-scanning/masscan-test3-2.png)
 
 
 _**Split #3:** 8 Port Ranges_
@@ -298,7 +298,7 @@ _Rates and Jobs Used:_
 - 2 jobs each w/ 100k rate
 
 _Charts:_
-![masscan-test3-3](/static/img/12/masscan-test3-3.png)
+![masscan-test3-3](/static/img/2019-07-29-port-scanning/masscan-test3-3.png)
 
 _**Split #4:** 4 Port Ranges_
 ```
@@ -314,7 +314,7 @@ _Rate and Job Used:_
 > _The reason I only used one combination for the 4-port range split was because I realized that I already exceeded my monthly bandwidth limit. As a result, I had to pay $100+ more._
 
 _Charts:_
-![masscan-test3-4](/static/img/12/masscan-test3-4.png)
+![masscan-test3-4](/static/img/2019-07-29-port-scanning/masscan-test3-4.png)
 
 
 _Observations:_
@@ -329,7 +329,7 @@ _Observations:_
 ### Raw Data
 
 The following table shows the raw data from the experiments performed using the different Masscan test cases mentioned above.
-![masscan-raw](/static/img/12/masscan-raw.jpg)
+![masscan-raw](/static/img/2019-07-29-port-scanning/masscan-raw.jpg)
 
 
 ### Masscan Conclusion
@@ -419,7 +419,7 @@ grep "Host:" MASSCAN_OUTPUT.gnmap | cut -d " " -f2 | sort -V | uniq > HOSTS
 ```
 
 The following image shows the above command in action.
-![nmap-test3-hosts](/static/img/12/nmap-test3-hosts.jpg)
+![nmap-test3-hosts](/static/img/2019-07-29-port-scanning/nmap-test3-hosts.jpg)
 
 The command below was used to get the combined list of all open ports detected by Masscan.
 ```bash
@@ -427,7 +427,7 @@ grep "Ports:" MASSCAN_OUTPUT.gnmap | cut -d " " -f4 | cut -d "/" -f1 | sort -n |
 ```
 
 The following shows the command in action.
-![nmap-test3-ports](/static/img/12/nmap-test3-ports.jpg)
+![nmap-test3-ports](/static/img/2019-07-29-port-scanning/nmap-test3-ports.jpg)
 
 This command was used to run a regular Nmap scan.
 ```bash
@@ -445,7 +445,7 @@ _Jobs Used:_
 - 100
 
 _Charts:_
-![nmap-test3](/static/img/12/nmap-test3.png)
+![nmap-test3](/static/img/2019-07-29-port-scanning/nmap-test3.png)
 
 _Observations:_
 - When running a regular Nmap scan, CPU utilization was around 10% only. 
@@ -535,7 +535,7 @@ cat MASSCAN_OUTPUT.gnmap | grep Host | awk '{print $2,$5}' | sed 's@/.*@@' | sor
 ```
 
 Image here shows what the command does. 
-![nmap-test4-hosts](/static/img/12/nmap-test4-hosts.jpg)
+![nmap-test4-hosts](/static/img/2019-07-29-port-scanning/nmap-test4-hosts.jpg)
 
 To get the list of open ports from each host, the following command was executed.
 ```bash
@@ -543,7 +543,7 @@ cat MASSCAN_OUTPUT.gnmap | grep Host | awk '{print $2,$5}' | sed 's@/.*@@' | sor
 ```
 
 Here's what the command does.
-![nmap-test4-ports](/static/img/12/nmap-test4-ports.jpg)
+![nmap-test4-ports](/static/img/2019-07-29-port-scanning/nmap-test4-ports.jpg)
 
 As you can see, the output is different from the command used in Test Case #3. Instead of combining all the open ports, we created a list of all open ports found from each host.  
 
@@ -564,7 +564,7 @@ sudo nmap -sSV -p 08,443 -v --open -Pn -n -T4 192.168.1.9 -oA 192.168.1.9
 ```
 
 The following image shows a snippet of what happened when the test case was executed. As seen below, 10 concurrent Nmap scans are running using parallel.
-![nmap-test4-1](/static/img/12/nmap-test4-1.jpg)
+![nmap-test4-1](/static/img/2019-07-29-port-scanning/nmap-test4-1.jpg)
 
 
 _Jobs Used:_
@@ -573,7 +573,7 @@ _Jobs Used:_
 - 100
 
 _Charts:_
-![nmap-test4-2](/static/img/12/nmap-test4-2.png)
+![nmap-test4-2](/static/img/2019-07-29-port-scanning/nmap-test4-2.png)
 
 _Observations:_
 - More concurrent jobs and running the machine at 100% CPU utilization yield fewer open ports.
@@ -583,7 +583,7 @@ _Observations:_
 ### Raw Data
 
 The following table shows the raw data from the experiments performed using the different Nmap test cases mentioned above.
-![nmap-raw](/static/img/12/nmap-raw.jpg)
+![nmap-raw](/static/img/2019-07-29-port-scanning/nmap-raw.jpg)
 
 ### Nmap Conclusion
 

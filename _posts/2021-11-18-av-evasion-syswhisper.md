@@ -4,8 +4,8 @@ title: "When You sysWhisper Loud Enough for AV to Hear You"
 date: 2021-11-18
 categories: [redteam, maldev]
 description: "Evading Windows Defender when SysWhisper got caught!"
-header-img: /static/img/17/int2eh.png
-image: /static/img/17/int2eh.png
+header-img: /static/img/2021-11-18-av-evasion-syswhisper/int2eh.png
+image: /static/img/2021-11-18-av-evasion-syswhisper/int2eh.png
 ---
 
 When I started my journey in Malware Development and AV/EDR Evasion, most of the articles and blog posts I have read recommended the use of **syscalls**. By using **syscalls**, an adversary can bypass detection controls (such as **user-land Hooking**) by jumping into the **kernel-mode**. Evasion is possible in this case since AV/EDR systems can only monitor an application's behaviour in **user-mode**. Another advantage is the fact that any Windows API functions used will not be referenced in the import table.
@@ -58,7 +58,7 @@ int main(int argc, char* argv[])
 
 The baseline code didn't use any **syscalls** and as soon as it touched the disk, Defender caught it immediately.
 
-![Windows Defender Flagged the Baseline Code](/static/img/17/baseline-caught-defender.png)
+![Windows Defender Flagged the Baseline Code](/static/img/2021-11-18-av-evasion-syswhisper/baseline-caught-defender.png)
 
 This is not surprising since almost all AVs look for a combination of Windows APIs such as `VirtualAllocEx`, `WriteProcessMemory`, and `CreateRemoteThread`, which are commonly used for malicious purposes.
 
@@ -118,7 +118,7 @@ int main(int argc, char* argv[])
 
 Now this should evade Defender, right? Unfortunately, **no**!  As seen here, Defender caught it again as soon as it touched the disk.
 
-![Windows Defender Caught the Use of Syscalls](/static/img/17/syscall-caught-defender.png)
+![Windows Defender Caught the Use of Syscalls](/static/img/2021-11-18-av-evasion-syswhisper/syscall-caught-defender.png)
 
 
 ## What's Offending Defender?
@@ -159,7 +159,7 @@ Based on my observation, the tool provides different results when you run it sev
 
 After some Googling, I came across this [blog post](https://jmpesp.me/malware-analysis-syscalls-example/) which mentions that the use of **syscalls** can be easily identified by searching for the `syscall` instruction. By doing a "Text search" for the string "syscall", 5 occurrences were identified - which is right since there are 5 Native API functions used; `NtOpenProcess`, `NtAllocateVirtualMemory`, `NtWriteVirtualMemory`, `NtCreateThreadEx`, and `NtClose`.
 
-![Using IDA to Search for the String "syscall"](/static/img/17/ida-search-syscall.png)
+![Using IDA to Search for the String "syscall"](/static/img/2021-11-18-av-evasion-syswhisper/ida-search-syscall.png)
 
 So Windows Defender might be looking for the `syscall` instructions within the binary and that's why it's getting detected.
 
@@ -169,22 +169,22 @@ One way to easily solve this issue and bypass Defender is to use the legacy inst
 
 This can be done easily by looking for any `syscall` instructions within the `*.asm` output file of SysWhisper2 and changing them to `int 2Eh`.
 
-![Changing "syscall" Instructions to "int 2Eh"](/static/img/17/int2eh.png)
+![Changing "syscall" Instructions to "int 2Eh"](/static/img/2021-11-18-av-evasion-syswhisper/int2eh.png)
 
 And as soon as it touched the disk, Defender failed to detect it. Even when the binary was executed, Defender still failed to detect it.
 
-![Windows Defender Bypassed](/static/img/17/defender-bypassed.png)
+![Windows Defender Bypassed](/static/img/2021-11-18-av-evasion-syswhisper/defender-bypassed.png)
 
 How about running it against multiple AVs? Turned out we have a [good detection rate.](https://www.virustotal.com/gui/file/10726c9be16af69d1d6ff05df8ae4c59c98dec051e1458139258959ad6ded55f?nocache=1)
 
-![Virustotal Result](/static/img/17/virustotal-result.png)
+![Virustotal Result](/static/img/2021-11-18-av-evasion-syswhisper/virustotal-result.png)
 
 
 ## Are We Good Then?
 
 It's true that we have achieved our goal of evading AVs using direct syscalls. However, the method presented can be easily signatured. Instead of looking for **syscall** instructions within the binary, defenders could also look for the presence of **int 2Eh** instructions.
 
-![Searching for the "int 2Eh" instruction](/static/img/17/ida-search-2eh.png)
+![Searching for the "int 2Eh" instruction](/static/img/2021-11-18-av-evasion-syswhisper/ida-search-2eh.png)
 
 So what can we do about it as a red teamer? One way is to obfuscate the `*.asm` file by adding some "junk codes", or using polymorphic codes.
 
