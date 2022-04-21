@@ -39,8 +39,8 @@ urls:
       
 url: "https://capt-meelo.github.io/"
 baseurl: ""
-paginate: 20
-per_page: 20
+paginate: 25
+per_page: 25
 paginate_path: "/page/:num/"
 markdown: kramdown
 plugins:
