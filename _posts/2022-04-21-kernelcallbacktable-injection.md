@@ -248,6 +248,8 @@ int main()
 ```
 > _**NOTE:** I already removed the cleanup code (like restoring the original `KernelCallbackTable`) because they don't matter anymore since the target process has already crashed and exited._
 
+> _The full project can be found [here](https://github.com/capt-meelo/KernelCallbackTable-Injection)._
+
 And here it is in action.
 
 ![Successful KernelCallbackTable Injection](/static/img/2022-04-21-kernelcallbacktable-injection/kct-injection-worked.gif)
