@@ -23,7 +23,7 @@ The binary that we're going to develop will inject a shellcode into a remote pro
 
 We don't want to get stuck in "analysis paralysis" on which process injection technique is "best", so we'll just stick to the classic **CreateRemoteThread** method. The image below best illustrates how this technique works. 
 
-![Demo of Process Injection](/static/img/2021-12-15-lazy-maldev/process-injection.gif)
+[![Demo of Process Injection](/static/img/2021-12-15-lazy-maldev/process-injection.gif)](/static/img/2021-12-15-lazy-maldev/process-injection.gif)
 
 > _Huge thanks to Elastic for creating this awesome GIF and for their [awesome blog post](https://www.elastic.co/blog/ten-process-injection-techniques-technical-survey-common-and-trending-process)_
 
@@ -68,7 +68,7 @@ int main(int argc, char* argv[])
 
 If we compile and run the above code, we can see that the injection worked. As illustrated below, the shellcode was injected into the address space of `explorer.exe`.
 
-![CreateRemoteThread Worked!](/static/img/2021-12-15-lazy-maldev/shellcode-in-explorer.png)
+[![CreateRemoteThread Worked!](/static/img/2021-12-15-lazy-maldev/shellcode-in-explorer.png)](/static/img/2021-12-15-lazy-maldev/shellcode-in-explorer.png)
 
 Obviously, this code is signatured heavily already by AV vendors and will be caught immediately.
 
@@ -124,7 +124,7 @@ int main(int argc, char* argv[])
 
 The following shows the output of the above code and the AES-encrypted shellcode.
 
-![AES-encrypted Shellcode](/static/img/2021-12-15-lazy-maldev/encrypted-shellcode.png)
+[![AES-encrypted Shellcode](/static/img/2021-12-15-lazy-maldev/encrypted-shellcode.png)](/static/img/2021-12-15-lazy-maldev/encrypted-shellcode.png)
 
 To use it, simply change the contents of `shellcode` parameter using the above output, and then add the decryption code. The following shows the updated code:
 
@@ -170,7 +170,7 @@ int main(int argc, char* argv[])
 
 Is there anything else that we can improve? Of course! If we analyze our binary, we can see that the functions we used (`OpenProcess`, `VirtualAllocEx`, `WriteProcessMemory`, `CreateRemoteThread` and `CloseHandle`) are listed in the binary's **Import Address Table**. This is a red flag since AVs look for a combination of these Windows APIs, which are commonly used for malicious purposes.
 
-![Current Import Table](/static/img/2021-12-15-lazy-maldev/import-table-before.png)
+[![Current Import Table](/static/img/2021-12-15-lazy-maldev/import-table-before.png)](/static/img/2021-12-15-lazy-maldev/import-table-before.png)
 
 What we can do is remove this footprint by "hiding" these functions. And since we're just noobs (again), we'll use the open-source library [JustasMasiulis/lazy_importer](https://github.com/JustasMasiulis/lazy_importer). Just like we did previously, simply import the file [lazy_importer.hpp](https://raw.githubusercontent.com/JustasMasiulis/lazy_importer/master/include/lazy_importer.hpp) in our project and we're good.
 
@@ -216,13 +216,13 @@ int main(int argc, char* argv[])
 
 And if we examine again the binary's **Import Address Table**, the Windows APIs used are now gone.
 
-![Updated Import Table](/static/img/2021-12-15-lazy-maldev/import-table-after.png)
+[![Updated Import Table](/static/img/2021-12-15-lazy-maldev/import-table-after.png)](/static/img/2021-12-15-lazy-maldev/import-table-after.png)
 
 ## Detection Rate
 
 How did our malware do after what we have done? Looks like we got a good result!
 
-![Detection Rate](/static/img/2021-12-15-lazy-maldev/detection-rate.png)
+[![Detection Rate](/static/img/2021-12-15-lazy-maldev/detection-rate.png)](/static/img/2021-12-15-lazy-maldev/detection-rate.png)
 
 For a simple and lazily-written malware, I'm surprised that a number of AV vendors failed to detect it. 
 

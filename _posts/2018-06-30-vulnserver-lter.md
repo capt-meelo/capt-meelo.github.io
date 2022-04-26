@@ -2,7 +2,10 @@
 layout: post
 title:  "[VulnServer] Exploiting LTER Command using Restricted Characters"
 date:   2018-06-30
-categories: [exploitdev, osceprep]
+categories: exploitdev
+description: "Exploitation of VulnServer's LTE command with restricted characters."
+header-img: /static/img/2018-06-30-vulnserver-lter/04.png
+image: /static/img/2018-06-30-vulnserver-lter/04.png
 ---
 
 The following skeleton was used for the exploitation of the `LTER` command.
@@ -28,7 +31,7 @@ s.close()
 ```
 
 Sending this code caused the application to crash.
-![Crash](/static/img/2018-06-30-vulnserver-lter/01.png)
+[![Crash](/static/img/2018-06-30-vulnserver-lter/01.png)](/static/img/2018-06-30-vulnserver-lter/01.png)
 
 I ran `!mona pc 3000` to generate a unique string of 3000 bytes.
 ```python
@@ -53,7 +56,7 @@ s.close()
 ```
 
 Using `!mona findmsp`, that offset was identified at **2003 bytes**.
-![Offset](/static/img/2018-06-30-vulnserver-lter/02.png)
+[![Offset](/static/img/2018-06-30-vulnserver-lter/02.png)](/static/img/2018-06-30-vulnserver-lter/02.png)
 
 The code was modified to make sure that the offset was correct.
 ```python
@@ -80,7 +83,7 @@ s.close()
 ```
 
 As seen, the offset was correct and 4 B’s overwrote **EIP**. It can also be seen that **ESP** was located directly after **EIP** and pointed to the buffer of C’s.
-![BBB](/static/img/2018-06-30-vulnserver-lter/03.png)
+[![BBB](/static/img/2018-06-30-vulnserver-lter/03.png)](/static/img/2018-06-30-vulnserver-lter/03.png)
 
 To find the bad characters, I modified the following code and stored it right after the 4 B’s.
 ```python
@@ -117,10 +120,10 @@ s.close()
 ```
 
 As seen here, right after `\x7F`, the character `\x80` was translated to `\x01`. It turned out that every character after `\x7F` will be converted by subtracting `\x7F`. In the case of `\xFF`, it was converted to `\x80` due to the minus `\x7F`. From that, I observed that the allowed characters were only ASCII (except of **NULL byte**). 
-![ASCII](/static/img/2018-06-30-vulnserver-lter/04.png)
+[![ASCII](/static/img/2018-06-30-vulnserver-lter/04.png)](/static/img/2018-06-30-vulnserver-lter/04.png)
 
 With that, I used `!mona jmp -r esp -cp ascii -m "essfunc.dll”` to find an address containing an `JMP ESP` instruction. Take note of the option `-cp ascii`. This was used to make sure that the resulting address(es) only contains ASCII characters. For this, I used the firsts instance which was `0x62501203`.
-![JMP ESP](/static/img/2018-06-30-vulnserver-lter/05.png)
+[![JMP ESP](/static/img/2018-06-30-vulnserver-lter/05.png)](/static/img/2018-06-30-vulnserver-lter/05.png)
 
 I then modifie the code and tried the `JMP ESP` address.
 ```python
@@ -147,10 +150,10 @@ s.close()
 ```
 
 As seen, it worked and I was redirected to the buffer of C’s.
-![CCCC](/static/img/2018-06-30-vulnserver-lter/06.png)
+[![CCCC](/static/img/2018-06-30-vulnserver-lter/06.png)](/static/img/2018-06-30-vulnserver-lter/06.png)
 
 Next, I generated a shellcode using the **alpha_mixed** encoder. I had to use this encoder to generate a shellcode that would contain only the list of allowed characters. It should be noted also that I used the option `BufferRegister=ESP`. Without this option, the shellcode will begin with the opcodes `\x89\xe2\xdb\xdb\xd9\x72`. This opcodes are needed in order to find the shellcode’s absolute location in memory. In this exploit, I already knew the absolute location of my shellcode, which was in **ESP**. With that, I opted to use the `BufferRegister=ESP` option when I generated my shellcode. If you want to learn more about the **alpha_mixed** encoder, please read [this](https://www.offensive-security.com/metasploit-unleashed/alphanumeric-shellcode/).
-![MSFvenom](/static/img/2018-06-30-vulnserver-lter/07.png)
+[![MSFvenom](/static/img/2018-06-30-vulnserver-lter/07.png)](/static/img/2018-06-30-vulnserver-lter/07.png)
 
 The following shows the final exploit code.
 ```python
@@ -229,7 +232,7 @@ s.close()
 ```
 
 Running this caused the target machine to spawn a bind shell on port **4444/tcp**.
-![Spawn](/static/img/2018-06-30-vulnserver-lter/08.png)
+[![Spawn](/static/img/2018-06-30-vulnserver-lter/08.png)](/static/img/2018-06-30-vulnserver-lter/08.png)
 
 Connecting to this port allowed me to have shell access on the target machine.
-![Shell](/static/img/2018-06-30-vulnserver-lter/09.png)
+[![Shell](/static/img/2018-06-30-vulnserver-lter/09.png)](/static/img/2018-06-30-vulnserver-lter/09.png)

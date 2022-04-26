@@ -2,7 +2,10 @@
 layout: post
 title:  "[VulnServer] Exploiting KSTET Command with Minimal Buffer Space Using Egghunter"
 date:   2018-06-29
-categories: [exploitdev, osceprep]
+categories: exploitdev
+description: "Exploitation of VulnServer's KSTET command with minimal buffer space using Egghunter."
+header-img: /static/img/2018-06-29-vulnserver-kstet/14.png
+image: /static/img/2018-06-29-vulnserver-kstet/14.png
 ---
 
 I used the following skeleton for the exploitation of the `KSTET` command. Instead of sending 5000 bytes of buffer to fuzz the command, I only used **1000 bytes** this time.
@@ -27,7 +30,7 @@ print s.recv(1024)
 s.close()
 ```
 The 1000 bytes of buffer were enough to crash the application. As seen, even if 1000 bytes of buffer were sent, only 94 bytes were accepted by the application. _(Note: I kept the original buffer length of 1000 bytes for the rest of the exploitation so as not to deviate from my skeleton.)_
-![Crash](/static/img/2018-06-29-vulnserver-kstet/01.png)
+[![Crash](/static/img/2018-06-29-vulnserver-kstet/01.png)](/static/img/2018-06-29-vulnserver-kstet/01.png)
 
 Using `!mona pc 1000`, I generated 1000 bytes of unique string as buffer so I could determine the offset that overwrote **EIP**.
 ```python
@@ -52,10 +55,10 @@ s.close()
 ```
 
 Sending this unique string caused **EIP** to be overwritten with **63413363**.
-![EIP Overwrite](/static/img/2018-06-29-vulnserver-kstet/02.png)
+[![EIP Overwrite](/static/img/2018-06-29-vulnserver-kstet/02.png)](/static/img/2018-06-29-vulnserver-kstet/02.png)
 
 Using `!mona findmsp`, I discovered that the offset was **70 bytes**.
-![Offset](/static/img/2018-06-29-vulnserver-kstet/03.png)
+[![Offset](/static/img/2018-06-29-vulnserver-kstet/03.png)](/static/img/2018-06-29-vulnserver-kstet/03.png)
 
 To verify if it was correct, I sent the following modified code. 
 ```python
@@ -82,9 +85,9 @@ s.close()
 ```
 
 As seen, the offset was correct and **EIP** was overwritten with 4 B’s. One thing to note here was that **ESP** pointed to the 20 bytes of C’s, which was located right after the 4 B’s.
-![Correct Offset](/static/img/2018-06-29-vulnserver-kstet/04.png)
+[![Correct Offset](/static/img/2018-06-29-vulnserver-kstet/04.png)](/static/img/2018-06-29-vulnserver-kstet/04.png)
 
-Just like in my [previous post](https://capt-meelo.github.io/exploitdev/osceprep/2018/06/28/vulnserver-gter.html), the limited buffer space made me split the characters from `\x01` to `\xFF` to identify the bad character. Again, the **NULL** (`\x00`) character was already removed. The first split contained the characters from `\x01` to `\4F`.
+Just like in my [previous post](https://captmeelo.com/exploitdev/2018/06/28/vulnserver-gter.html), the limited buffer space made me split the characters from `\x01` to `\xFF` to identify the bad character. Again, the **NULL** (`\x00`) character was already removed. The first split contained the characters from `\x01` to `\4F`.
 ```python
 #!/usr/bin/python
 
@@ -112,19 +115,19 @@ s.close()
 ```
 
 As seen here, there were no bad characters detected.
-![1st Batch](/static/img/2018-06-29-vulnserver-kstet/05.png)
+[![1st Batch](/static/img/2018-06-29-vulnserver-kstet/05.png)](/static/img/2018-06-29-vulnserver-kstet/05.png)
 
 The next batch of characters that I tested were `\x50` to `\x9F`.
-![2nd Batch](/static/img/2018-06-29-vulnserver-kstet/06.png)
+[![2nd Batch](/static/img/2018-06-29-vulnserver-kstet/06.png)](/static/img/2018-06-29-vulnserver-kstet/06.png)
 
 Followed by `\xA0` to `\xCF`.
-![3rd Batch](/static/img/2018-06-29-vulnserver-kstet/07.png)
+[![3rd Batch](/static/img/2018-06-29-vulnserver-kstet/07.png)](/static/img/2018-06-29-vulnserver-kstet/07.png)
 
 The last batch were `\xD0` to `\xFF`. After the repetitive process of identifying the bad characters, only `\x00` was considered one.
-![4th Batch](/static/img/2018-06-29-vulnserver-kstet/08.png)
+[![4th Batch](/static/img/2018-06-29-vulnserver-kstet/08.png)](/static/img/2018-06-29-vulnserver-kstet/08.png)
 
 Then I used `!mona jmp -r esp -m ‘essfunc.dll’` to identify an address containing a `JMP ESP` instruction. Several addresses were discovered. However, for this exploitation, I used `0x625011AF`. 
-![JMP ESP](/static/img/2018-06-29-vulnserver-kstet/09.png)
+[![JMP ESP](/static/img/2018-06-29-vulnserver-kstet/09.png)](/static/img/2018-06-29-vulnserver-kstet/09.png)
 
 I then modified the code to reflect the discovered address.
 ```python
@@ -150,11 +153,11 @@ print s.recv(1024)
 s.close()
 ```
 
-As seen here, it worked and I was redirected to the buffer of C’s. Just like in my [previous post](https://capt-meelo.github.io/exploitdev/osceprep/2018/06/28/vulnserver-gter.html), the buffer of A’s were located above the buffer of C’s. So, I had to jump backwards again.
-![JMP ESP Worked](/static/img/2018-06-29-vulnserver-kstet/10.png)
+As seen here, it worked and I was redirected to the buffer of C’s. Just like in my [previous post](https://captmeelo.com/exploitdev/2018/06/28/vulnserver-gter.html), the buffer of A’s were located above the buffer of C’s. So, I had to jump backwards again.
+[![JMP ESP Worked](/static/img/2018-06-29-vulnserver-kstet/10.png)](/static/img/2018-06-29-vulnserver-kstet/10.png)
 
 Instead of jumping to the start of A’s, I decided to jump back only with 50 bytes. The opcode of **short jump** is `\xEB`, while **-50** is equivalent to `0xFFFFFFCE`. 
-![Calculator](/static/img/2018-06-29-vulnserver-kstet/11.png)
+[![Calculator](/static/img/2018-06-29-vulnserver-kstet/11.png)](/static/img/2018-06-29-vulnserver-kstet/11.png)
 
 So, the opcode of the instruction that I used to jump backwards 50 bytes was `\xEB\xCE`.
 ```python
@@ -182,13 +185,13 @@ s.close()
 ```
 
 As seen here, the jump was successful and I was redirected to 48 bytes ($-30h) relative to the position of the jump instruction ($). If you’re curious why 48 bytes only, the missing 2 bytes were covered by the opcode `\xEB\xCE`.
-![Negative Jump](/static/img/2018-06-29-vulnserver-kstet/12.png)
+[![Negative Jump](/static/img/2018-06-29-vulnserver-kstet/12.png)](/static/img/2018-06-29-vulnserver-kstet/12.png)
 
 Since everything was working well, I used `!mona egg -t Capt` to generate the egghunter.
-![Egghunter](/static/img/2018-06-29-vulnserver-kstet/13.png)
+[![Egghunter](/static/img/2018-06-29-vulnserver-kstet/13.png)](/static/img/2018-06-29-vulnserver-kstet/13.png)
 
 Before using the egghunter, I had to determine first the offset (the number of A’s) before the egghunter code. To do that, I made a simple computation: **original 70 bytes of A's + 4 bytes for JMP ESP + 2 bytes for the backward jump opcodes - 50 bytes for the length of backward jump = 26 bytes of A’s**. The following shows what the buffer looked like and its flow:
-![Flow](/static/img/2018-06-29-vulnserver-kstet/14.png)
+[![Flow](/static/img/2018-06-29-vulnserver-kstet/14.png)](/static/img/2018-06-29-vulnserver-kstet/14.png)
 
 To test if my computation was correct, I executed the following.
 ```python
@@ -223,10 +226,10 @@ s.close()
 ```
 
 It worked! I was redirected to the start of the egghunter code.
-![Start of Egghunter](/static/img/2018-06-29-vulnserver-kstet/15.png)
+[![Start of Egghunter](/static/img/2018-06-29-vulnserver-kstet/15.png)](/static/img/2018-06-29-vulnserver-kstet/15.png)
 
 Then I generated a shellcode using the MSFvenom.
-![MSFvenom](/static/img/2018-06-29-vulnserver-kstet/16.png)
+[![MSFvenom](/static/img/2018-06-29-vulnserver-kstet/16.png)](/static/img/2018-06-29-vulnserver-kstet/16.png)
 
 Since the shellcode won’t fit inside the `KSTET` command, I used the `STATS` command to send my shellcode. This way, my shellcode would be placed somewhere in memory and let the egghunter find it.
 ```python
@@ -298,10 +301,10 @@ s.close()
 ```
 
 Upon executing the final exploit code, the egghunter successfully located my shellcode after the `STATS` command.
-![STATS](/static/img/2018-06-29-vulnserver-kstet/17.png)
+[![STATS](/static/img/2018-06-29-vulnserver-kstet/17.png)](/static/img/2018-06-29-vulnserver-kstet/17.png)
 
 Since the shellcode worked, the target machine spawned a “listening” port on **4444/tcp**.
-![Success](/static/img/2018-06-29-vulnserver-kstet/18.png)
+[![Success](/static/img/2018-06-29-vulnserver-kstet/18.png)](/static/img/2018-06-29-vulnserver-kstet/18.png)
 
 The last thing to do was to connect to the newly opened port to have a shell access.
-![Shell Access](/static/img/2018-06-29-vulnserver-kstet/19.png)
+[![Shell Access](/static/img/2018-06-29-vulnserver-kstet/19.png)](/static/img/2018-06-29-vulnserver-kstet/19.png)

@@ -102,7 +102,7 @@ During my experiment, the PoC didn't work and it keeps on crashing `explorer.exe
 WriteProcessMemory(hProcess, (PBYTE)pbi.PebBaseAddress + offsetof(PEB, KernelCallbackTable), &newKCTAddr, sizeof(ULONG_PTR), NULL);
 ```
 
-![Explorer Crashed](/static/img/2022-04-21-kernelcallbacktable-injection/explorer-crashed.gif)
+[![Explorer Crashed](/static/img/2022-04-21-kernelcallbacktable-injection/explorer-crashed.gif)](/static/img/2022-04-21-kernelcallbacktable-injection/explorer-crashed.gif)
 
 What if we target other GUI processes? I tried it by getting a handle to the window class `Notepad` _(using the code below)_ and have `notepad.exe` run before executing the code.
 ```cpp
@@ -111,7 +111,7 @@ HWND hWindow = FindWindow(L"Notepad", NULL);
 
 And it worked! The payload gets executed **but** the target process still crashed right after the call to `SendMessage()`.
 
-![Payload Executed but Target Process Crashed](/static/img/2022-04-21-kernelcallbacktable-injection/payload-worked-notepad-crashed.gif)
+[![Payload Executed but Target Process Crashed](/static/img/2022-04-21-kernelcallbacktable-injection/payload-worked-notepad-crashed.gif)](/static/img/2022-04-21-kernelcallbacktable-injection/payload-worked-notepad-crashed.gif)
 
 The problems I see with this method are:
 
@@ -138,7 +138,7 @@ CreateProcess(L"C:\\Windows\\System32\\notepad.exe", NULL, NULL, NULL, FALSE, CR
 
 Well, that didn't work because a suspended process does not have any window in it.
 
-![Suspened Process has no Window](/static/img/2022-04-21-kernelcallbacktable-injection/no-window.png)
+[![Suspened Process has no Window](/static/img/2022-04-21-kernelcallbacktable-injection/no-window.png)](/static/img/2022-04-21-kernelcallbacktable-injection/no-window.png)
 
 No window means no handle to obtain so injection and execution of payload are not possible.
 ```powershell
@@ -165,7 +165,7 @@ si.wShowWindow = SW_HIDE;
 
 As for the process creation flag, I changed it from `CREATE_SUSPENDED` to `CREATE_NEW_CONSOLE`. I got the result that I wanted; the process is not visible to the user and it has a window. However, no handle was obtained so injection and execution of payload still did not happen.
 
-![Created Process with Window](/static/img/2022-04-21-kernelcallbacktable-injection/process-has-window.png)
+[![Created Process with Window](/static/img/2022-04-21-kernelcallbacktable-injection/process-has-window.png)](/static/img/2022-04-21-kernelcallbacktable-injection/process-has-window.png)
 
 ### Third Attempt: SUCCESS!
 
@@ -252,7 +252,7 @@ int main()
 
 And here it is in action.
 
-![Successful KernelCallbackTable Injection](/static/img/2022-04-21-kernelcallbacktable-injection/kct-injection-worked.gif)
+[![Successful KernelCallbackTable Injection](/static/img/2022-04-21-kernelcallbacktable-injection/kct-injection-worked.gif)](/static/img/2022-04-21-kernelcallbacktable-injection/kct-injection-worked.gif)
 
 ## Conclusion
 

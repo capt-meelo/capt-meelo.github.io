@@ -53,7 +53,7 @@ int main()
 
 ```
 
-![AES-encrypted Shellcode](/static/img/2022-02-16-libraries-for-maldev/aes-enc-shellcode.png)
+[![AES-encrypted Shellcode](/static/img/2022-02-16-libraries-for-maldev/aes-enc-shellcode.png)](/static/img/2022-02-16-libraries-for-maldev/aes-enc-shellcode.png)
 
 To decrypt the encrypted shellcode, simply used the `AES_CBC_decrypt_buffer()` function.
 
@@ -90,7 +90,7 @@ int main()
 
 If we compile the above code and look for the "`ntdll.dll`" and "`NtDelayExecution`" strings, they are visible.
 
-![Unobfuscated Strings](/static/img/2022-02-16-libraries-for-maldev/skcrypter-unobfuscated.png)
+[![Unobfuscated Strings](/static/img/2022-02-16-libraries-for-maldev/skcrypter-unobfuscated.png)](/static/img/2022-02-16-libraries-for-maldev/skcrypter-unobfuscated.png)
 
 If we used functions that are considered malicious, such as the combination of `OpenProcess`, `VirtualAllocEx`, `WriteProcessMemory`, and `CreateRemoteThread`, then our malware might not even pass the static analysis phase of an AV.
 
@@ -118,7 +118,7 @@ int main()
 
 As we can see, the strings disappeared within the binary.
 
-![Obfuscated Strings](/static/img/2022-02-16-libraries-for-maldev/skcrypter-obfuscated.png)
+[![Obfuscated Strings](/static/img/2022-02-16-libraries-for-maldev/skcrypter-obfuscated.png)](/static/img/2022-02-16-libraries-for-maldev/skcrypter-obfuscated.png)
 
 I also found the following string encryption libraries, though I haven't used/tested them:
 
@@ -152,7 +152,7 @@ int main()
 
 For example, if the above code was compiled, the function `CreateProcessW` is listed in the **IAT** and is flagged by [PEStudio](https://www.winitor.com/download/).
 
-![CreateProcessW Lsited in IAT](/static/img/2022-02-16-libraries-for-maldev/func-in-iat.png)
+[![CreateProcessW Lsited in IAT](/static/img/2022-02-16-libraries-for-maldev/func-in-iat.png)](/static/img/2022-02-16-libraries-for-maldev/func-in-iat.png)
 
 This artifact can be easily hidden by utilizing the [JustasMasiulis/lazy_importer](https://github.com/JustasMasiulis/lazy_importer) header. Using it is as simple as importing the header file `lazy_importer.hpp` and invoking the `LI_FN()` function. For example:
 ```cpp
@@ -178,7 +178,7 @@ int main()
 
 If we look at the **IAT** again, the `CreateProcessW` function is not listed anymore. 
 
-![CreateProcessW Gone from IAT](/static/img/2022-02-16-libraries-for-maldev/no-func-in-iat.png)
+[![CreateProcessW Gone from IAT](/static/img/2022-02-16-libraries-for-maldev/no-func-in-iat.png)](/static/img/2022-02-16-libraries-for-maldev/no-func-in-iat.png)
 
 The following could also be used as an alternative library to dynamically import functions and modules:
 
@@ -269,7 +269,7 @@ Then call the initialization function `jm::init_syscalls_list()` before using th
 
 
 > _NOTE: If you're using Visual Studio, make sure to use `LLVM (clang-cl)` as the **Platform Toolset**._
-> ![Setting the Platform Toolset](/static/img/2022-02-16-libraries-for-maldev/inline-syscall-clang.png)
+> [![Setting the Platform Toolset](/static/img/2022-02-16-libraries-for-maldev/inline-syscall-clang.png)](/static/img/2022-02-16-libraries-for-maldev/inline-syscall-clang.png)
 
 Here's an example code that utilizes the `INLINE_SYSCALL` macro:
 ```cpp
@@ -370,7 +370,7 @@ int main(int argc, char* argv[])
 
 If we run the compiled binary against Windows Defender, it was not detected (at the time of writing) compared to the binary generated with [jthuraisamy/SysWhispers2](https://github.com/jthuraisamy/SysWhispers2).
 
-![inline_syscall not Detected by Win Defender](/static/img/2022-02-16-libraries-for-maldev/inline-syscall-not-detected.png)
+[![inline_syscall not Detected by Win Defender](/static/img/2022-02-16-libraries-for-maldev/inline-syscall-not-detected.png)](/static/img/2022-02-16-libraries-for-maldev/inline-syscall-not-detected.png)
 
 
 ## Conclusion
