@@ -1,9 +1,9 @@
 body {
-    font-family: "Roboto Thin", Arial, sans-serif;
+    font-family: "Roboto Condensed", sans-serif;;
     background: url("/static/img/dark_dotted2.png");
     line-height: 1.5em;
     font-weight: 350;
-    font-size: 15px;
+    font-size: 16px;
     color: #FFFFFF;
   }
   hr {
@@ -84,11 +84,11 @@ body {
   /* Left column */
   div.col-sm-3 {
     margin-top: 100px;
-    font-size: 15px;	/* About & Sidebars */
+    font-size: 16px;	/* About & Sidebars */
     color: #ffffff;
   }
   div.col-sm-3 strong {
-    font-size: 15px;
+    font-size: 17px;
     color: #32CD32;
     font-weight: normal;
   }
