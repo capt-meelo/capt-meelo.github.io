@@ -256,9 +256,9 @@ th {
   }
 }
 * {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
 }
 :before,
 :after {
@@ -691,10 +691,10 @@ samp {
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 code {
-  padding: 2px 4px;
+  /*padding: 2px 4px;*/
   font-size: 90%;
   color: #c7254e;
-  background-color: #f9f2f4;
+  /*background-color: #f9f2f4;*/
   white-space: nowrap;
   border-radius: 4px;
 }
