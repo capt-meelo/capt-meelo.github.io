@@ -12,12 +12,12 @@
 #lightbox .img img {opacity: 0; pointer-events: none; width: auto;}
 @media screen and (min-width: 1200px) {
     #lightbox .img {
-        max-width: 1200px;
+        max-width: 1920px;
     }
 }
 @media screen and (min-height: 1200px) {
     #lightbox .img {
-        max-height: 1200px;
+        max-height: 1920px;
     }
 }
 #lightbox span {display: block; position: fixed; bottom: 13px; height: 1.5em; line-height: 1.4em; width: 100%; text-align: center; color: white; text-shadow:

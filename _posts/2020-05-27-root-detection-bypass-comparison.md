@@ -6,7 +6,6 @@ categories: mobile
 description: "This research shows the effectiveness of different root-detection tools. The goal is to have a “go-to” tool when bypassing an app’s root-detection implementation."
 header-img: /static/img/2020-05-27-root-detection-bypass-comparison/results.png
 image: /static/img/2020-05-27-root-detection-bypass-comparison/results.png
-published: false
 ---
 
 ## Introduction

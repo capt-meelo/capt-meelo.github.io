@@ -6,7 +6,6 @@ categories: mobile
 description: "How to bypass the different checks used by RootBeer library by changing the application’s process during runtime through dynamic instrumentation."
 header-img: /static/img/2020-06-15-bypass-rootbeer-part2/success.png
 image: /static/img/2020-06-15-bypass-rootbeer-part2/success.png
-published: false
 ---
 
 ## Introduction

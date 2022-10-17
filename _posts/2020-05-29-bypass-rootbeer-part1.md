@@ -6,7 +6,6 @@ categories: mobile
 description: "How to bypass the different checks used by RootBeer library by changing the application’s process through code manipulation."
 header-img: /static/img/2020-05-29-bypass-rootbeer-part1/isrooted-class.png
 image: /static/img/2020-05-29-bypass-rootbeer-part1/isrooted-class.png
-published: false
 ---
 
 ## Introduction
