@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "[SANS HackFest 2022] Developing HIgh-Impact Malware with Minimal Effort"
+title: "[SANS HackFest 2022] Developing High-Impact Malware with Minimal Effort"
 date: 2022-11-14
-categories: [talks]
+categories: [talks, research]
 description: "A copy of the presentation I presented on how to quickly and easily develop malware from the perspective of someone who has limited time and basic programming skills."
 header-img: /static/img/2022-11-14-sans-hackfest/sans-card.jpg
 image: /static/img/2022-11-14-sans-hackfest/sans-card.jpg

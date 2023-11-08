@@ -2,7 +2,7 @@
 layout: post
 title:  "Patching DoublePulsar to Exploit Windows Embedded Machines"
 date:   2018-06-26
-categories: pentest
+categories: [pentest, research]
 description: "Patching DoublePulsar to make the exploit work against Windows Embedded devices."
 header-img: /static/img/2018-06-26-patching-doublepulsar/14.png
 image: /static/img/2018-06-26-patching-doublepulsar/14.png

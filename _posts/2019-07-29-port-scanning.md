@@ -2,7 +2,7 @@
 layout: post
 title:  "Finding the Balance Between Speed & Accuracy During an Internet-wide Port Scanning"
 date:   2019-07-29
-categories: pentest
+categories: [pentest, research]
 description: "A research on performing port scanning efficiently."
 header-img: /static/img/2019-07-29-port-scanning/masscan-test1.png
 image: /static/img/2019-07-29-port-scanning/masscan-test1.png

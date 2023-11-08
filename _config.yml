@@ -36,6 +36,8 @@ urls:
       url: /category/exploitdev
     - text: Talks
       url: /category/talks
+    - text: Research
+      url: /category/research
     - text: About Me
       url: /about/
       

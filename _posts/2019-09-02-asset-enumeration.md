@@ -2,7 +2,7 @@
 layout: post
 title: "Asset Enumeration: Expanding a Target's Attack Surface"
 date: 2019-09-02
-categories: pentest
+categories: [pentest, research]
 description: "Expanding a target's attack surface by performing vertical and horizontal enumeration."
 header-img: /static/img/2019-09-02-asset-enumeration/asset-disc.png
 image: /static/img/2019-09-02-asset-enumeration/asset-disc.png
