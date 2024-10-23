@@ -4243,9 +4243,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   padding: 6px 12px;
   line-height: 1.42857143;
   text-decoration: none;
-  color: #428bca;
-  background-color: #fff;
-  border: 1px solid #ddd;
+  color: #FFD700;
+  background-color: #000;
+  border: 1px solid #000;
   margin-left: -1px;
 }
 .pagination > li:first-child > a,
@@ -4285,9 +4285,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .pagination > .disabled > a,
 .pagination > .disabled > a:hover,
 .pagination > .disabled > a:focus {
-  color: #999;
-  background-color: #fff;
-  border-color: #ddd;
+  color: #fff;
+  background-color: #000;
+  border-color: #000;
   cursor: not-allowed;
 }
 .pagination-lg > li > a,
