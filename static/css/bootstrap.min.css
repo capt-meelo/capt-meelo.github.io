@@ -4244,8 +4244,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   line-height: 1.42857143;
   text-decoration: none;
   color: #FFD700;
-  background-color: #000;
-  border: 1px solid #000;
+  background-color: transparent;
+  border: 1px solid #999;
   margin-left: -1px;
 }
 .pagination > li:first-child > a,
@@ -4285,9 +4285,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .pagination > .disabled > a,
 .pagination > .disabled > a:hover,
 .pagination > .disabled > a:focus {
-  color: #fff;
-  background-color: #000;
-  border-color: #000;
+  color: #ddd;
+  background-color: transparent;
+  border-color: #999;
   cursor: not-allowed;
 }
 .pagination-lg > li > a,
