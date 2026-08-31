@@ -1,0 +1,474 @@
+/* ==========================================================================
+   captmeelo.com - dark-first GitHub palette, terminal accent in the header.
+   Mobile-first. Two font weights only (400 / 500).
+   ========================================================================== */
+
+:root {
+  --bg:  #0d1117;
+  --sf:  #161b22;
+  --bd:  #21262d;
+  --bd2: #30363d;
+  --tx:  #e6edf3;
+  --mu:  #8b949e;
+  --ac:  #1f6feb;
+  --ac-tx: #ffffff;
+
+  --cat-research:   #3fb950;
+  --cat-talks:      #3fb950;
+  --cat-maldev:     #d29922;
+  --cat-mobile:     #58a6ff;
+  --cat-pentest:    #bc8cff;
+  --cat-redteam:    #f85149;
+  --cat-exploitdev: #39c5cf;
+  --cat-osceprep:   #f85149;
+
+  --sy-comment: #8b949e;
+  --sy-keyword: #ff7b72;
+  --sy-string:  #a5d6ff;
+
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo,
+          Consolas, "Liberation Mono", monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+
+  --w: 44rem;
+}
+
+/* Light values are deliberately different hexes - the dark accents wash out
+   on white. Do not collapse these back onto the dark palette. */
+[data-theme="light"] {
+  --bg:  #ffffff;
+  --sf:  #f6f8fa;
+  --bd:  #d0d7de;
+  --bd2: #d0d7de;
+  --tx:  #1f2328;
+  --mu:  #59636e;
+  --ac:  #0969da;
+
+  --cat-research:   #1a7f37;
+  --cat-talks:      #1a7f37;
+  --cat-maldev:     #9a6700;
+  --cat-mobile:     #0969da;
+  --cat-pentest:    #8250df;
+  --cat-redteam:    #cf222e;
+  --cat-exploitdev: #1b7c83;
+  --cat-osceprep:   #cf222e;
+
+  --sy-comment: #6e7781;
+  --sy-keyword: #cf222e;
+  --sy-string:  #0a3069;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--tx);
+  font: 400 1rem/1.65 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--ac); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+h1, h2, h3, h4 { font-weight: 500; line-height: 1.3; margin: 0; }
+
+.wrap {
+  max-width: var(--w);
+  margin: 0 auto;
+  padding: 1.5rem 1.1rem 3rem;
+}
+
+/* ---------- header ---------------------------------------------------- */
+
+.site-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: var(--w);
+  margin: 0 auto;
+  padding: 1rem 1.1rem;
+  border-bottom: 1px solid var(--bd);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex: 1;
+  min-width: 0;
+  color: inherit;
+}
+.brand:hover { text-decoration: none; }
+
+/* The monogram sits behind the avatar image, so a missing file degrades to
+   initials instead of a broken-image icon. */
+.avatar, .avatar-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  flex: none;
+}
+.avatar {
+  display: grid;
+  place-items: center;
+  background: var(--sf);
+  border: 1px solid var(--bd2);
+  color: var(--mu);
+  font: 500 0.9rem var(--mono);
+}
+.avatar-img { object-fit: cover; margin-left: -36px; }
+
+.brand-text { display: flex; flex-direction: column; min-width: 0; }
+
+.prompt {
+  font: 500 0.95rem var(--mono);
+  color: var(--tx);
+  white-space: nowrap;
+}
+.sigil { color: var(--cat-research); margin-right: 0.4em; }
+
+.tagline {
+  font: 400 0.72rem var(--mono);
+  color: var(--mu);
+}
+
+.theme-btn {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: var(--sf);
+  border: 1px solid var(--bd2);
+  border-radius: 6px;
+  color: var(--mu);
+  cursor: pointer;
+}
+.theme-btn:hover { color: var(--tx); }
+.theme-btn .i-sun { display: none; }
+[data-theme="light"] .theme-btn .i-moon { display: none; }
+[data-theme="light"] .theme-btn .i-sun  { display: block; }
+
+/* ---------- footer ---------------------------------------------------- */
+
+.site-foot {
+  max-width: var(--w);
+  margin: 0 auto;
+  padding: 1.25rem 1.1rem 2.5rem;
+  border-top: 1px solid var(--bd);
+  font: 400 0.75rem var(--mono);
+  color: var(--mu);
+}
+.site-foot p { margin: 0 0 0.35rem; }
+.foot-links a { color: var(--mu); }
+.foot-links a:hover { color: var(--tx); }
+
+/* ---------- index: search / pills / count ----------------------------- */
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0 0.7rem;
+  background: var(--sf);
+  border: 1px solid var(--bd2);
+  border-radius: 6px;
+  color: var(--mu);
+}
+.search-box:focus-within { border-color: var(--ac); }
+
+.search-box input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.6rem 0;
+  background: none;
+  border: 0;
+  color: var(--tx);
+  font: 400 0.875rem var(--mono);
+}
+.search-box input::placeholder { color: var(--mu); }
+.search-box input:focus { outline: none; }
+.search-box input::-webkit-search-cancel-button { display: none; }
+
+#q-clear {
+  padding: 0 0.2rem;
+  background: none;
+  border: 0;
+  color: var(--mu);
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+}
+#q-clear:hover { color: var(--tx); }
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.9rem 0 0;
+}
+
+.pill {
+  padding: 0.28rem 0.6rem;
+  background: var(--sf);
+  border: 1px solid var(--bd);
+  border-radius: 999px;
+  color: var(--mu);
+  font: 400 0.75rem var(--mono);
+  cursor: pointer;
+}
+.pill:hover { color: var(--tx); text-decoration: none; }
+.pill.on {
+  background: var(--ac);
+  border-color: var(--ac);
+  color: var(--ac-tx);
+}
+
+.count {
+  margin: 1rem 0 0.25rem;
+  font: 400 0.75rem var(--mono);
+  color: var(--mu);
+}
+
+.empty {
+  padding: 2rem 0;
+  font: 400 0.8rem var(--mono);
+  color: var(--mu);
+  text-align: center;
+}
+
+/* ---------- post cards ------------------------------------------------ */
+
+.cards { list-style: none; margin: 0; padding: 0; }
+
+.card { border-top: 1px solid var(--bd); }
+.card > a {
+  display: block;
+  padding: 1.1rem 0;
+  color: inherit;
+}
+.card > a:hover { text-decoration: none; }
+.card > a:hover h2 { color: var(--ac); }
+
+.card h2 { font-size: 1.05rem; margin: 0.2rem 0 0.35rem; }
+
+.blurb {
+  margin: 0;
+  color: var(--mu);
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  font: 400 0.7rem var(--mono);
+  color: var(--mu);
+}
+.meta .sep { opacity: 0.5; }
+.meta time { white-space: nowrap; }
+
+.cat { text-transform: uppercase; letter-spacing: 0.04em; color: var(--mu); }
+.cat-research   { color: var(--cat-research); }
+.cat-talks      { color: var(--cat-talks); }
+.cat-maldev     { color: var(--cat-maldev); }
+.cat-mobile     { color: var(--cat-mobile); }
+.cat-pentest    { color: var(--cat-pentest); }
+.cat-redteam    { color: var(--cat-redteam); }
+.cat-exploitdev { color: var(--cat-exploitdev); }
+.cat-osceprep   { color: var(--cat-osceprep); }
+
+/* ---------- post page ------------------------------------------------- */
+
+.post h1 {
+  margin: 0.5rem 0 0;
+  font-size: 1.6rem;
+  letter-spacing: -0.01em;
+}
+
+.index h1 { font-size: 1.35rem; margin-bottom: 1rem; }
+
+.toc {
+  margin: 1.6rem 0;
+  padding: 0.8rem 1rem;
+  background: var(--sf);
+  border-left: 2px solid var(--ac);
+  border-radius: 0 6px 6px 0;
+}
+.toc-label, .aside-label {
+  margin: 0 0 0.5rem;
+  font: 400 0.68rem var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--mu);
+}
+.toc ul { list-style: none; margin: 0; padding: 0; }
+.toc li { margin: 0.3rem 0; }
+.toc a {
+  color: var(--mu);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+.toc a:hover { color: var(--tx); text-decoration: none; }
+.toc a.act { color: var(--ac); }
+
+.post-body { margin-top: 1.6rem; }
+.post-body > *:first-child { margin-top: 0; }
+.post-body p, .post-body ul, .post-body ol { margin: 0 0 1.15rem; }
+.post-body h2 {
+  margin: 2.2rem 0 0.8rem;
+  font-size: 1.2rem;
+  scroll-margin-top: 1rem;
+}
+.post-body h3 { margin: 1.8rem 0 0.6rem; font-size: 1.05rem; }
+.post-body li { margin: 0.3rem 0; }
+
+.post-body img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0.3rem 0;
+  border: 1px solid var(--bd);
+  border-radius: 6px;
+}
+
+.post-body blockquote {
+  margin: 0 0 1.15rem;
+  padding: 0.1rem 0 0.1rem 1rem;
+  border-left: 2px solid var(--bd2);
+  color: var(--mu);
+}
+
+.post-body hr { border: 0; border-top: 1px solid var(--bd); margin: 2rem 0; }
+
+.post-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.post-body table th, .post-body table td {
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--bd);
+  text-align: left;
+}
+.post-body table th { background: var(--sf); font-weight: 500; }
+.table-scroll { overflow-x: auto; margin: 0 0 1.15rem; }
+
+/* Both live inside .wrap, so they inherit its width and gutters. */
+.related, .pager { margin: 2.5rem 0 0; }
+.related ul { list-style: none; margin: 0; padding: 0; }
+.related li { margin: 0.4rem 0; font-size: 0.9rem; }
+
+.pager {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--bd);
+  font-size: 0.85rem;
+}
+
+/* ---------- code ------------------------------------------------------ */
+
+/* Bare `code` is inline code only. kramdown also tags inline code with
+   .highlighter-rouge, so block rules below are scoped to div.highlighter-rouge. */
+code {
+  padding: 0.12em 0.35em;
+  background: var(--sf);
+  border: 1px solid var(--bd);
+  border-radius: 4px;
+  font: 400 0.85em var(--mono);
+  word-break: break-word;
+}
+
+.cb {
+  margin: 0 0 1.15rem;
+  border: 1px solid var(--bd2);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.cb-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.35rem 0.6rem;
+  background: var(--sf);
+  border-bottom: 1px solid var(--bd2);
+  font: 400 0.7rem var(--mono);
+  color: var(--mu);
+}
+.cb-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cb-copy {
+  flex: none;
+  padding: 0.1rem 0.4rem;
+  background: none;
+  border: 1px solid var(--bd2);
+  border-radius: 4px;
+  color: var(--mu);
+  font: inherit;
+  cursor: pointer;
+}
+.cb-copy:hover { color: var(--tx); }
+
+div.highlighter-rouge, .cb .highlight {
+  margin: 0;
+  background: var(--sf);
+}
+.cb pre, div.highlighter-rouge pre {
+  margin: 0;
+  padding: 0.75rem 0.8rem;
+  overflow-x: auto;
+  font: 400 0.8rem/1.55 var(--mono);
+  color: var(--tx);
+}
+.cb code, div.highlighter-rouge code {
+  padding: 0;
+  background: none;
+  border: 0;
+  font-size: inherit;
+  word-break: normal;
+}
+
+/* Rouge tokens - three colours, per the design brief. Kept flat (no nesting)
+   so this file is also valid plain CSS. */
+.highlight .c,  .highlight .c1, .highlight .cm, .highlight .cd,
+.highlight .cs, .highlight .ch { color: var(--sy-comment); font-style: italic; }
+
+.highlight .k,   .highlight .kc,  .highlight .kd, .highlight .kn,
+.highlight .kp,  .highlight .kr,  .highlight .kt, .highlight .kv,
+.highlight .cp,  .highlight .cpf, .highlight .nt, .highlight .nb,
+.highlight .bp,  .highlight .ow { color: var(--sy-keyword); }
+
+.highlight .s,  .highlight .s1, .highlight .s2, .highlight .sa,
+.highlight .sb, .highlight .sc, .highlight .sd, .highlight .se,
+.highlight .sh, .highlight .si, .highlight .sx, .highlight .sr,
+.highlight .ss, .highlight .dl, .highlight .m,  .highlight .mb,
+.highlight .mf, .highlight .mh, .highlight .mi, .highlight .mo,
+.highlight .il { color: var(--sy-string); }
+
+.highlight .gp, .highlight .gh, .highlight .gu { color: var(--sy-comment); }
+.highlight .gd  { color: var(--sy-keyword); }
+.highlight .gi  { color: var(--cat-research); }
+.highlight .err { color: var(--sy-keyword); }
+
+/* ---------- wider screens -------------------------------------------- */
+
+@media (min-width: 40rem) {
+  .post h1 { font-size: 1.9rem; }
+  .card h2 { font-size: 1.15rem; }
+  .pager { flex-direction: row; justify-content: space-between; }
+  .pager .next { text-align: right; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

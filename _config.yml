@@ -1,13 +1,11 @@
 title: Hack.Learn.Share
 description: This blog contains write-ups of the things that I researched, learned, and wanted to share to others.
 author: Capt. Meelo
+handle: captmeelo
+tagline: hack · learn · share
 github: https://github.com/capt-meelo
 about: An infosec guy who's constantly seeking for knowledge.
-google_analytics: UA-121401658-1
 avatar_url: /static/img/avatar.jpg
-
-enableTags: true
-tagarray: []
 
 collections:
   project:
@@ -15,48 +13,53 @@ collections:
     permalink: /project/:path/
 
 social:
-    - icon: fa-twitter
-      link: "https://twitter.com/CaptMeelo"
-    - icon: fa-github
+    - name: github
       link: "https://github.com/capt-meelo"
+    - name: twitter
+      link: "https://twitter.com/CaptMeelo"
 
-share:
-  twitter_username: CaptMeelo
+twitter:
+  username: CaptMeelo         # used by jekyll-seo-tag for the twitter card
 
-urls:
-    - text: Red Team
-      url: /category/redteam
-    - text: Malware Dev
-      url: /category/maldev
-    - text: Pen Test
-      url: /category/pentest
-    - text: Mobile
-      url: /category/mobile
-    - text: Exploit Dev
-      url: /category/exploitdev
-    - text: Talks
-      url: /category/talks
-    - text: Research
-      url: /category/research
-    - text: About Me
-      url: /about/
-      
-url: "https://capt-meelo.github.io/"
+# Category label colours live in _sass/main.scss (.cat-<name>).
+categories_order:
+  - maldev
+  - redteam
+  - exploitdev
+  - pentest
+  - mobile
+  - research
+  - talks
+
+url: "https://captmeelo.com"
 baseurl: ""
-paginate: 25
-per_page: 25
-paginate_path: "/page/:num/"
+
 markdown: kramdown
+kramdown:
+  # No `input: GFM` on purpose — the GFM parser hard-wraps single newlines,
+  # which would change how all 30 existing posts render.
+  auto_ids: true              # the TOC and heading anchors depend on these
+  syntax_highlighter: rouge
+
+# Must stay as-is: this is the stock Jekyll `date` permalink and every
+# published write-up URL depends on it. Do not change.
+permalink: /:categories/:year/:month/:day/:title.html
+
+excerpt_separator: "<!--more-->"
+
+sass:
+  style: compressed
+
 plugins:
-  - jekyll-paginate
   - jekyll-gist
   - jekyll-seo-tag
-  - jemoji
-  - jekyll-auto-image
   - jekyll-feed
-  - jekyll-sitemap 
+  - jekyll-sitemap
+  - jemoji
 
 compress_html:
   clippings: all
   comments: ["<!-- ", " -->"]
   endings: all
+  ignore:
+    envs: [development]

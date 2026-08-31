@@ -1,0 +1,18 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="/static/img/favicon.ico">
+<link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="/feed.xml">
+
+{% seo %}
+
+<!-- Theme must be applied before first paint, otherwise every navigation
+     flashes the default theme. This is the only inline script on the page. -->
+<script>
+  try {
+    var t = localStorage.getItem('theme');
+    if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+  } catch (e) {}
+</script>
+
+<link rel="stylesheet" href="/assets/css/main.css">

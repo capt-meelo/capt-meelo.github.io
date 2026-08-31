@@ -1,73 +1,53 @@
 ---
 layout: default
 ---
-<header class="post-header">
-  <h1 class="post-title">{{ page.title }}</h1>
-</header>
+<article class="post">
+  {% include post-meta.html post=page link=true %}
+  <h1>{{ page.title }}</h1>
 
-<span class="time">{{ page.date | date_to_string }}</span>
-{% if page.categories %}
-  <span class="categories">
-    &raquo; {% for category in page.categories %}<a href="/category/{{ category }}">{{ category }}</a>{% if forloop.last == false %}, {% endif %}{% endfor %}
-  </span>
-{% endif %}
+  {%- comment -%}
+    TOC is built from the rendered h2 ids that kramdown generates (auto_ids).
+    Doing it in Liquid keeps it working with JS off and avoids hand-written
+    TOCs in each post. Hidden when a post has fewer than two sections.
+  {%- endcomment -%}
+  {%- assign chunks = content | split: '<h2 id="' -%}
+  {%- if chunks.size > 2 -%}
+  <nav class="toc" id="toc" aria-label="Contents">
+    <p class="toc-label">CONTENTS</p>
+    <ul>
+      {%- for chunk in chunks offset:1 -%}
+        {%- assign parts = chunk | split: '">' -%}
+        {%- assign id = parts[0] -%}
+        {%- assign text = parts[1] | split: '</h2>' | first | strip_html | strip -%}
+      <li><a href="#{{ id }}">{{ text }}</a></li>
+      {%- endfor -%}
+    </ul>
+  </nav>
+  {%- endif -%}
 
-<div class="content">
-  <div class="post">{{ content }}</div>
-  {% include share-page.html %}
-</div>
+  <div class="post-body">
+    {{ content }}
+  </div>
+</article>
 
-{% assign hasSimilar = '' %}
-  {% for post in site.posts  %}
-    {% assign postHasSimilar = false %}
-      {% for tag in post.categories %}
-        {% for thisTag in page.categories %}
-          {% if postHasSimilar == false and hasSimilar.size < 6 and post != page and tag == thisTag %}
-            {% if hasSimilar.size == 0 %}
-            <div class="panel-body">
-              <h4>Related Posts</h4>
-              <ul>
-            {% endif %}
-                <li class="relatedPost">
-                  <a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
-                  {% if post.categories %}
-                    (Categories: {% for category in post.categories %}<a href="/category/{{ category }}">{{ category }}</a>{% if forloop.last == false %}, {% endif %}{% endfor %})
-                  {% endif %}
-                </li>
-          {% capture hasSimilar %}{{ hasSimilar }}*{% endcapture %}
-          {% assign postHasSimilar = true %}
-        {% endif %}
-      {% endfor %}
-    {% endfor %}
-  {% endfor %}
-  {% if hasSimilar.size > 0 %}
+{%- assign cat = page.categories | first -%}
+{%- assign siblings = site.categories[cat] -%}
+{%- if siblings.size > 1 -%}
+<aside class="related">
+  <p class="aside-label">MORE IN {{ cat | upcase }}</p>
+  <ul>
+    {%- assign n = 0 -%}
+    {%- for p in siblings -%}
+      {%- if p.url == page.url -%}{%- continue -%}{%- endif -%}
+      {%- if n >= 4 -%}{%- break -%}{%- endif -%}
+      <li><a href="{{ p.url }}">{{ p.title }}</a></li>
+      {%- assign n = n | plus: 1 -%}
+    {%- endfor -%}
   </ul>
-</div>
-{% endif %}
+</aside>
+{%- endif -%}
 
-<div class="PageNavigation">
-  {% if page.previous.url %}
-    <a class="prev" href="{{ page.previous.url }}">&laquo; {{ page.previous.title }}</a>
-  {% endif %}
-  {% if page.next.url %}
-    <a class="next" href="{{ page.next.url }}">{{ page.next.title }} &raquo;</a>
-  {% endif %}
-</div>
-
-<div class="disqus-comments">
-  <div id="disqus_thread"></div>
-  <script type="text/javascript">
-    /* <![CDATA[ */
-    var disqus_shortname = "{{ site.disqus_shortname }}";
-    var disqus_identifier = "{{ site.url }}_{{ page.title }}";
-    var disqus_title = "{{ page.title }}";
-
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-    /* ]]> */
-  </script>
-</div>
+<nav class="pager">
+  {%- if page.previous.url %}<a class="prev" href="{{ page.previous.url }}">&larr; {{ page.previous.title }}</a>{% endif -%}
+  {%- if page.next.url %}<a class="next" href="{{ page.next.url }}">{{ page.next.title }} &rarr;</a>{% endif -%}
+</nav>

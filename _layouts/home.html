@@ -1,0 +1,43 @@
+---
+layout: default
+---
+<div class="index">
+  <div class="search-box">
+    <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+      <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+    <input type="search" id="q" placeholder="search all posts" autocomplete="off"
+           spellcheck="false" aria-label="Search posts">
+    <button type="button" id="q-clear" hidden aria-label="Clear search">&times;</button>
+  </div>
+
+  <nav class="pills" id="pills" aria-label="Filter by category">
+    <button type="button" class="pill" data-cat="all">all</button>
+    {%- for c in site.categories_order -%}
+      {%- if site.categories[c] -%}
+        <button type="button" class="pill" data-cat="{{ c }}">{{ c }}</button>
+      {%- endif -%}
+    {%- endfor -%}
+  </nav>
+
+  <p class="count" id="count">{{ site.posts | size }} posts</p>
+
+  <ol class="cards" id="cards">
+    {%- for post in site.posts -%}
+      {%- assign cats = post.categories | join: ' ' -%}
+      {%- capture blurb -%}{% if post.description %}{{ post.description }}{% else %}{{ post.excerpt | strip_html }}{% endif %}{%- endcapture -%}
+      {%- capture haystack -%}{{ post.title }} {{ blurb }} {{ cats }}{%- endcapture -%}
+    <li class="card" data-cats="{{ cats }}" data-url="{{ post.url }}"
+        data-s="{{ haystack | strip_html | normalize_whitespace | downcase | escape }}">
+      <a href="{{ post.url }}">
+        {% include post-meta.html post=post %}
+        <h2>{{ post.title }}</h2>
+        <p class="blurb">{{ blurb | strip_html | truncate: 220 }}</p>
+      </a>
+    </li>
+    {%- endfor -%}
+  </ol>
+
+  <p class="empty" id="empty" hidden>no posts matched</p>
+</div>

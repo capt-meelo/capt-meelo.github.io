@@ -1,0 +1,8 @@
+<footer class="site-foot">
+  <p>&copy; {{ site.handle }} &middot; powered by jekyll</p>
+  <p class="foot-links">
+    <a href="/about/">about</a>
+    {% for l in site.social %}&middot; <a href="{{ l.link }}" rel="me noopener">{{ l.name }}</a>{% endfor %}
+    &middot; <a href="/feed.xml">rss</a>
+  </p>
+</footer>

@@ -1,0 +1,19 @@
+{%- comment -%}
+  Category is a plain span by default: on the index the whole card is already
+  one <a>, and a nested anchor is invalid HTML — the parser closes the card
+  link early and the title stops being clickable. Pass link=true on the post
+  page, where the meta line is not inside a link.
+{%- endcomment -%}
+{%- assign cat = include.post.categories | first -%}
+{%- assign mins = include.post.content | number_of_words | divided_by: 200 | plus: 1 -%}
+<p class="meta">
+  {%- if include.link -%}
+    <a class="cat cat-{{ cat }}" href="/category/{{ cat }}">{{ cat }}</a>
+  {%- else -%}
+    <span class="cat cat-{{ cat }}">{{ cat }}</span>
+  {%- endif -%}
+  <span class="sep">·</span>
+  <time datetime="{{ include.post.date | date_to_xmlschema }}">{{ include.post.date | date: "%b %-d, %Y" }}</time>
+  <span class="sep">·</span>
+  <span>{{ mins }} min read</span>
+</p>

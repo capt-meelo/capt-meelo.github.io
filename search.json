@@ -1,0 +1,4 @@
+---
+layout: null
+---
+[{% for post in site.posts %}{"u":{{ post.url | jsonify }},"b":{{ post.content | strip_html | normalize_whitespace | downcase | jsonify }}}{% unless forloop.last %},{% endunless %}{% endfor %}]
