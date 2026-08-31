@@ -72,6 +72,60 @@
     box.appendChild(t);
   });
 
+  /* ---------- image lightbox -------------------------------------------- */
+
+  // Posts write images as [![alt](img)](img), so every figure is an anchor
+  // pointing straight at the file. Intercept that and show it in a <dialog>:
+  // modal behaviour, backdrop and Esc-to-close all come from the element.
+  var postBody = document.querySelector('.post-body');
+  if (postBody) {
+    var IMAGE_HREF = /\.(png|jpe?g|gif|webp|avif|svg)(\?.*)?$/i;
+
+    var dlg = document.createElement('dialog');
+    dlg.className = 'lb';
+    dlg.setAttribute('aria-label', 'Enlarged image');
+    var full = document.createElement('img');
+    dlg.appendChild(full);
+    document.body.appendChild(dlg);
+
+    var openedAt = 0;
+    var closeLb = function () {
+      if (dlg.open) dlg.close();
+    };
+
+    postBody.addEventListener('click', function (e) {
+      // No <dialog> support, or a modified click: leave the link alone.
+      if (typeof dlg.showModal !== 'function') return;
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+      var a = e.target.closest('a[href]');
+      var img = e.target.closest('img');
+      var src = a && IMAGE_HREF.test(a.getAttribute('href'))
+        ? a.getAttribute('href')
+        : (img && !a ? img.currentSrc || img.src : null);
+      if (!src) return;
+
+      e.preventDefault();
+      full.src = src;
+      full.alt = img ? img.alt : '';
+      openedAt = performance.now();
+      dlg.showModal();
+    });
+
+    // Any click inside the dialog dismisses — backdrop and image alike, so a
+    // phone-sized image can never trap the reader with no visible margin.
+    dlg.addEventListener('click', closeLb);
+    dlg.addEventListener('close', function () { full.removeAttribute('src'); });
+
+    // Scrolling dismisses too. The grace period matters: showModal() moves
+    // focus, which can emit a scroll event and close the dialog instantly.
+    ['wheel', 'touchmove', 'scroll'].forEach(function (ev) {
+      window.addEventListener(ev, function () {
+        if (dlg.open && performance.now() - openedAt > 200) closeLb();
+      }, { passive: true, capture: true });
+    });
+  }
+
   /* ---------- TOC scroll-spy -------------------------------------------- */
 
   // Progressive: without this the TOC still works as plain anchor links.
