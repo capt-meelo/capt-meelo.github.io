@@ -1,8 +1,10 @@
 <header class="site-head">
   <a class="brand" href="/">
-    <span class="avatar" aria-hidden="true">{{ site.handle | slice: 0, 1 | upcase }}</span>
-    <img class="avatar-img" src="{{ site.avatar_url }}" alt="" width="36" height="36"
-         onerror="this.remove()">
+    <span class="avatar" aria-hidden="true">
+      {{ site.handle | slice: 0, 1 | upcase }}
+      <img class="avatar-img" src="{{ site.avatar_url }}" alt=""
+           onerror="this.remove()">
+    </span>
     <span class="brand-text">
       <span class="prompt"><span class="sigil">~$</span>{{ site.handle }}</span>
       <span class="tagline">{{ site.tagline }}</span>
