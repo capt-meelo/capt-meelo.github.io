@@ -520,13 +520,8 @@ div.highlighter-rouge, .cb .highlight {
   .pager .next { text-align: right; }
 }
 
-/* The card index earns the extra width; body copy does not — long prose lines
-   are harder to read, so the post column keeps its measure and centres inside
-   the wider shell. */
 @media (min-width: 58rem) {
   :root { --w: 58rem; }
-  .post, .related, .pager { max-width: 46rem; }
-  .post { margin: 0 auto; }
 }
 
 @media (min-width: 86rem) {

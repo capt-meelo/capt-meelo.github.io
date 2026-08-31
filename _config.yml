@@ -60,6 +60,11 @@ plugins:
 compress_html:
   clippings: all
   comments: ["<!-- ", " -->"]
-  endings: all
+  # NOT `endings: all`. That strips </p>, which leaves a <p> open inside the
+  # post card's <a>. The HTML parser then runs the adoption agency algorithm,
+  # reparenting the excerpt out of the card link and wrapping it in a cloned
+  # <a> — the excerpt turns blue and picks up 1.1rem of padding above it.
+  # Every other element in the default list is safe to strip.
+  endings: [li, dt, dd, rt, rp, optgroup, option, colgroup, caption, thead, tbody, tfoot, tr, td, th]
   ignore:
     envs: [development]
