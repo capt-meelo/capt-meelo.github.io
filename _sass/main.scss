@@ -25,6 +25,10 @@
   --sy-comment: #8b949e;
   --sy-keyword: #ff7b72;
   --sy-string:  #a5d6ff;
+  --sy-fn:      #d2a8ff;   /* function and method names */
+  --sy-var:     #ffa657;   /* variables, class names, namespaces */
+  --sy-num:     #79c0ff;   /* numbers, constants, builtins */
+  --sy-tag:     #7ee787;   /* markup tags, shell prompts */
 
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo,
           Consolas, "Liberation Mono", monospace;
@@ -59,6 +63,10 @@
   --sy-comment: #6e7781;
   --sy-keyword: #cf222e;
   --sy-string:  #0a3069;
+  --sy-fn:      #8250df;
+  --sy-var:     #953800;
+  --sy-num:     #0550ae;
+  --sy-tag:     #116329;
 }
 
 * { box-sizing: border-box; }
@@ -338,10 +346,23 @@ h1, h2, h3, h4 { font-weight: 500; line-height: 1.3; margin: 0; }
 .post-body { margin-top: 1.6rem; }
 .post-body > *:first-child { margin-top: 0; }
 .post-body p, .post-body ul, .post-body ol { margin: 0 0 1.15rem; }
+/* Section headings — the ones the TOC is built from — take the post's own
+   category colour, the same token the card label uses, so a write-up reads as
+   one palette instead of grey on grey. Falls back to accent blue. */
+.post-maldev     { --sec: var(--cat-maldev); }
+.post-redteam    { --sec: var(--cat-redteam); }
+.post-exploitdev { --sec: var(--cat-exploitdev); }
+.post-pentest    { --sec: var(--cat-pentest); }
+.post-mobile     { --sec: var(--cat-mobile); }
+.post-research   { --sec: var(--cat-research); }
+.post-talks      { --sec: var(--cat-talks); }
+.post-osceprep   { --sec: var(--cat-osceprep); }
+
 .post-body h2 {
   margin: 2.2rem 0 0.8rem;
   font-size: 1.2rem;
   scroll-margin-top: 1rem;
+  color: var(--sec, var(--ac));
 }
 .post-body h3 { margin: 1.8rem 0 0.6rem; font-size: 1.05rem; }
 .post-body li { margin: 0.3rem 0; }
@@ -496,17 +517,35 @@ div.highlighter-rouge, .cb .highlight {
 
 .highlight .k,   .highlight .kc,  .highlight .kd, .highlight .kn,
 .highlight .kp,  .highlight .kr,  .highlight .kt, .highlight .kv,
-.highlight .cp,  .highlight .cpf, .highlight .nt, .highlight .nb,
-.highlight .bp,  .highlight .ow { color: var(--sy-keyword); }
+.highlight .cp,  .highlight .cpf, .highlight .ow { color: var(--sy-keyword); }
+
+/* Builtins (print, echo, NULL) read as constants, not keywords. */
+.highlight .nb, .highlight .bp { color: var(--sy-num); }
 
 .highlight .s,  .highlight .s1, .highlight .s2, .highlight .sa,
 .highlight .sb, .highlight .sc, .highlight .sd, .highlight .se,
 .highlight .sh, .highlight .si, .highlight .sx, .highlight .sr,
-.highlight .ss, .highlight .dl, .highlight .m,  .highlight .mb,
-.highlight .mf, .highlight .mh, .highlight .mi, .highlight .mo,
-.highlight .il { color: var(--sy-string); }
+.highlight .ss, .highlight .dl { color: var(--sy-string); }
 
-.highlight .gp, .highlight .gh, .highlight .gu { color: var(--sy-comment); }
+/* Numbers and constants get their own blue so they read apart from strings. */
+.highlight .m,  .highlight .mb, .highlight .mf, .highlight .mh,
+.highlight .mi, .highlight .mo, .highlight .il { color: var(--sy-num); }
+
+/* Function and method names. */
+.highlight .nf, .highlight .fm, .highlight .nd { color: var(--sy-fn); }
+
+/* Classes, namespaces, variables, labels. */
+.highlight .nc, .highlight .nn, .highlight .ne, .highlight .nl,
+.highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi,
+.highlight .no { color: var(--sy-var); }
+
+/* Attributes and object attributes share the constant blue. */
+.highlight .na, .highlight .py { color: var(--sy-num); }
+
+/* Markup tags and the shell prompt in console transcripts. */
+.highlight .nt, .highlight .gp { color: var(--sy-tag); }
+
+.highlight .gh, .highlight .gu { color: var(--sy-comment); }
 .highlight .gd  { color: var(--sy-keyword); }
 .highlight .gi  { color: var(--cat-research); }
 .highlight .err { color: var(--sy-keyword); }

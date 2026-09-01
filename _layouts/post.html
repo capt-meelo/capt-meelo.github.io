@@ -1,7 +1,8 @@
 ---
 layout: default
 ---
-<article class="post">
+{%- assign cat = page.categories | first -%}
+<article class="post post-{{ cat }}">
   {% include post-meta.html post=page link=true %}
   <h1>{{ page.title }}</h1>
 
@@ -30,7 +31,6 @@ layout: default
   </div>
 </article>
 
-{%- assign cat = page.categories | first -%}
 {%- assign siblings = site.categories[cat] -%}
 {%- if siblings.size > 1 -%}
 <aside class="related">
