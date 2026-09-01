@@ -545,6 +545,18 @@ div.highlighter-rouge, .cb .highlight {
 /* Markup tags and the shell prompt in console transcripts. */
 .highlight .nt, .highlight .gp { color: var(--sy-tag); }
 
+/* Operators and punctuation. Dimming punctuation is what makes the coloured
+   tokens read — a C listing is roughly a third braces, commas and semicolons. */
+.highlight .o { color: var(--sy-keyword); }
+.highlight .p, .highlight .pi { color: var(--mu); }
+
+/* Rouge's C/C++ lexer tags ~80% of a Windows API listing as generic .n, so
+   those blocks stay flat however many token colours exist. blog.js re-tags the
+   two shapes that are unambiguous in this code; these are their colours. */
+.highlight .x-type { color: var(--sy-var); }
+.highlight .x-sal  { color: var(--sy-comment); }
+.highlight .x-fn   { color: var(--sy-fn); }
+
 .highlight .gh, .highlight .gu { color: var(--sy-comment); }
 .highlight .gd  { color: var(--sy-keyword); }
 .highlight .gi  { color: var(--cat-research); }

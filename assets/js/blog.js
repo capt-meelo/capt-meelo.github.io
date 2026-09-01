@@ -64,6 +64,28 @@
     });
   });
 
+  // Rouge's C/C++ lexer emits a generic .n for nearly every identifier, so
+  // Windows API listings render almost entirely uncoloured. Re-tag the two
+  // shapes that are unambiguous here: ALL_CAPS types and macros (NTSTATUS,
+  // PUNICODE_STRING, PVOID), and SAL annotations (_In_, _Out_, _In_opt_).
+  // Parameter names in this code are PascalCase, so PascalCase is deliberately
+  // left alone — treating it as "function" would miscolour every parameter.
+  var ALL_CAPS = /^[A-Z][A-Z0-9_]+$/;
+  var SAL = /^_[A-Za-z][A-Za-z0-9_]*_$/;
+  document.querySelectorAll('.language-c .highlight .n, .language-cpp .highlight .n')
+    .forEach(function (span) {
+      var text = span.textContent;
+      if (ALL_CAPS.test(text)) { span.classList.add('x-type'); return; }
+      if (SAL.test(text)) { span.classList.add('x-sal'); return; }
+      // An identifier whose *immediate* next sibling is punctuation opening a
+      // paren is a call. No whitespace is allowed between, which is what keeps
+      // `ULONG Flags\n);` from matching.
+      var next = span.nextSibling;
+      if (next && next.nodeType === 1 && next.textContent.charAt(0) === '(') {
+        span.classList.add('x-fn');
+      }
+    });
+
   // Wide tables scroll inside their own box instead of the page.
   document.querySelectorAll('.post-body table').forEach(function (t) {
     var box = document.createElement('div');
