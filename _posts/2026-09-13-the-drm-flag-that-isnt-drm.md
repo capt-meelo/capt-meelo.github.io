@@ -3,7 +3,7 @@ layout: post
 title: "The DRM Flag That Isn’t DRM"
 date: 2026-09-13
 categories: [research]
-description: "This post breaks down what the `SetWindowDisplayAffinity ` flag actually guarantees, who can route around it and how, and why a black screenshot is the beginning of a threat model rather than the end of one."
+description: "This post breaks down what the `SetWindowDisplayAffinity` flag actually guarantees, who can route around it and how, and why a black screenshot is the beginning of a threat model rather than the end of one."
 header-img: /static/img/2026-09-13-the-drm-flag-that-isnt-drm/different-captures.jpg
 image: /static/img/2026-09-13-the-drm-flag-that-isnt-drm/different-captures.jpg
 ---
@@ -12,7 +12,7 @@ _**Note**: This research was originally posted [here](https://www.ioactive.com/t
 
 # The DRM Flag That Isn't DRM
 
-*`SetWindowDisplayAffinity` keeps a window out of screenshots, screen shares, and Recall snapshots.. Vendors sell that as “screenshot protection,” and procurement checklists tick it off as data-exfiltration risk mitigated. The API's own documentatione disagrees. This post breaks down what the flag actually guarantees, who can route around it and how, and why a black screenshot is the beginning of a threat model rather than the end of one.*
+*`SetWindowDisplayAffinity` keeps a window out of screenshots, screen shares, and Recall snapshots. Vendors sell that as “screenshot protection,” and procurement checklists tick it off as data-exfiltration risk mitigated. The API's own documentation disagrees. This post breaks down what the flag actually guarantees, who can route around it and how, and why a black screenshot is the beginning of a threat model rather than the end of one.*
 
 ---
 
